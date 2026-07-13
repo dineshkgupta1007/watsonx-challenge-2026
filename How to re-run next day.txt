@@ -1,0 +1,22 @@
+How to re-run tomorrow
+Option A — With a new xlsx file (e.g. August data)
+Replace Ind July month 30 days demands.xlsx in the workspace folder with the new file (keep the same name)
+Open Bob chat and type:
+regenerate compliance report
+
+Bob will re-dump the xlsx and re-run the script automatically
+Option B — Re-run on the same data (no new file)
+Open PowerShell in the workspace folder
+Run:
+powershell -ExecutionPolicy Bypass -File "Generate_Compliance_Report.ps1"
+
+Open IND_July2026_Compliance_by_FS.html in your browser
+Option C — Double-click (simplest)
+Right-click Generate_Compliance_Report.ps1 → Run with PowerShell
+Open IND_July2026_Compliance_by_FS.html in your browser
+⚙️ What to update in the script for a new monthly cycle
+Open Generate_Compliance_Report.ps1 and change these two lines at the top:
+
+Line	Current	Change to (example for August)
+$refDate	"2026-07-10"	"2026-08-10"
+$commentCut	"2026-06-25"	"2026-07-25"

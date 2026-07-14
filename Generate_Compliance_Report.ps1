@@ -18,7 +18,7 @@
 # =============================================================================
 
 $root = $PSScriptRoot
-$raw = Get-Content "$root\.bob\tmp\xlsx-dumps\Ind July month 30 days demands-96dcc4d4fac9a7d4\30days.json" -Raw | ConvertFrom-Json
+$raw = Get-Content "$root\.bob\tmp\xlsx-dumps\Ind July month 30 days demands-3d969db54a4e0278\30days.json" -Raw | ConvertFrom-Json
 $headers = $raw.headers
 $rows    = $raw.rows
 
@@ -83,6 +83,7 @@ foreach ($row in $rows) {
     $fa         = cell $row "Fulfillment Action"
     $fg         = cell $row "Fieldglass Request Flag"
     $ticket     = cell $row "Hiring Ticket Number AskFile"
+    $askDetail  = cell $row "Ask File Details"
     $fsId       = cell $row "FS Intranet ID"
 
     $trackL = $track.ToLower(); $faL = $fa.ToLower(); $fgL = $fg.ToLower()
@@ -117,7 +118,7 @@ foreach ($row in $rows) {
             SeatId    = $openSeatId; Client = $client; Industry = $industry; Title = $title
             EstDt     = $estDt; EstParsed = $estParsed; Comments = $comments
             Track     = $track; FA = $fa; FG = if ([string]::IsNullOrWhiteSpace($fg)) { "" } else { $fg }
-            Ticket    = $ticket; Flags = $flags
+            Ticket    = $ticket; AskDetail = $askDetail; Flags = $flags
         })
     }
 }
@@ -263,7 +264,13 @@ foreach ($g in $groups) {
         $ed  = estCell $rec.EstDt $rec.EstParsed
         $cmt = commentCell $rec.Comments
         $fgd = if ([string]::IsNullOrWhiteSpace($rec.FG)) {"&#8212;"} else {hesc $rec.FG}
-        $tkd = if ([string]::IsNullOrWhiteSpace($rec.Ticket)) {"&#8212;"} else {hesc $rec.Ticket}
+        if ([string]::IsNullOrWhiteSpace($rec.Ticket)) {
+            $tkd = "&#8212;"
+        } elseif (-not [string]::IsNullOrWhiteSpace($rec.AskDetail)) {
+            $tkd = (hesc $rec.Ticket) + " : " + (hesc $rec.AskDetail)
+        } else {
+            $tkd = hesc $rec.Ticket
+        }
         $bdg = flagBadges $rec.Flags
         $null = $sb.AppendLine("<tr><td>$rn</td><td>$sl</td><td>$(hesc $rec.Client)</td><td>$(hesc $rec.Industry)</td><td>$(hesc $rec.Title)</td><td>$ed</td><td class='cmt'>$cmt</td><td>$(hesc $rec.Track)</td><td>$(hesc $rec.FA)</td><td>$fgd</td><td>$tkd</td><td>$bdg</td></tr>")
         $rn++

@@ -18,7 +18,7 @@
 # =============================================================================
 
 $root = $PSScriptRoot
-$raw = Get-Content "$root\.bob\tmp\xlsx-dumps\Ind July month 30 days demands-3d969db54a4e0278\30days.json" -Raw | ConvertFrom-Json
+$raw = Get-Content "$root\.bob\tmp\xlsx-dumps\Ind July month 30 days demands-2c09300b65411b62\30days.json" -Raw | ConvertFrom-Json
 $headers = $raw.headers
 $rows    = $raw.rows
 
@@ -58,6 +58,17 @@ function latestCommentDate($text) {
 $refDate    = [datetime]"2026-07-10"
 $commentCut = [datetime]"2026-06-25"
 
+# Returns the number of working days (Mon-Fri) between two dates (exclusive of $start, inclusive of $end)
+function workingDaysBetween($start, $end) {
+    if ($end -le $start) { return 0 }
+    $days = 0; $cur = $start.Date.AddDays(1)
+    while ($cur -le $end.Date) {
+        if ($cur.DayOfWeek -ne [DayOfWeek]::Saturday -and $cur.DayOfWeek -ne [DayOfWeek]::Sunday) { $days++ }
+        $cur = $cur.AddDays(1)
+    }
+    return $days
+}
+
 $contractorTracks = @(
     "contractor being pursued - core skill",
     "contractor being pursued - non-core skill",
@@ -85,6 +96,10 @@ foreach ($row in $rows) {
     $ticket     = cell $row "Hiring Ticket Number AskFile"
     $askDetail  = cell $row "Ask File Details"
     $fsId       = cell $row "FS Intranet ID"
+    $backfilled  = cell $row "Backfilled"
+    $priority    = cell $row "Priority Ranking"
+    $candDisp    = cell $row "Candidate Disposition"
+    $confirmedDt = cell $row "Confirmed Date"
 
     $trackL = $track.ToLower(); $faL = $fa.ToLower(); $fgL = $fg.ToLower()
     $flags = [System.Collections.Generic.List[string]]::new()
@@ -101,6 +116,11 @@ foreach ($row in $rows) {
 
     if ($trackL -like "*contractor*" -and ($fgL -eq "" -or $fgL -eq "n")) { $flags.Add("bf:Track Type/Fieldglass mismatch") }
 
+    $priorityNum = 0
+    $isPriority999 = ([int]::TryParse($priority.Trim().Split('.')[0], [ref]$priorityNum) -and $priorityNum -eq 999)
+    $isBackfillN   = ($backfilled.ToUpper() -eq "N" -or $backfilled.ToLower() -eq "no")
+    if ($isBackfillN -and $isPriority999) { $flags.Add("r6:Backfill N but Ranking 999") }
+
     $r4 = $false
     if (($trackL -eq "actively recruiting" -or $trackL -eq "new hire identified - awaiting start") -and $faL -ne "external hire") { $r4 = $true }
     if (!$r4 -and ($r4bTracks -contains $trackL) -and $faL -ne "bench/rolloff") { $r4 = $true }
@@ -111,6 +131,13 @@ foreach ($row in $rows) {
     if ($trackL -eq "actively recruiting" -and [string]::IsNullOrWhiteSpace($ticket)) { $flags.Add("r5a:No Hiring Ticket") }
     if ($faL -eq "bench/rolloff" -and -not [string]::IsNullOrWhiteSpace($ticket))     { $flags.Add("r5b:FA Bench/Rolloff with Hiring Ticket") }
     if (($contractorTracks -contains $trackL) -and ($fgL -eq "" -or $fgL -eq "n"))    { $flags.Add("r5c:SubK/FG Mismatch") }
+
+    if ($candDisp.ToLower() -eq "confirmed" -and -not [string]::IsNullOrWhiteSpace($confirmedDt)) {
+        $confParsed = parseDate $confirmedDt
+        if ($null -ne $confParsed -and (workingDaysBetween $confParsed ([datetime]::Today)) -gt 2) {
+            $flags.Add("r7:Candidate confirmed more than 2 days")
+        }
+    }
 
     if ($flags.Count -gt 0) {
         $allRecords.Add([PSCustomObject]@{
@@ -130,6 +157,8 @@ $cR4  = @($allRecords | Where-Object { $_.Flags -like "ba:*" }).Count
 $cR5a = @($allRecords | Where-Object { $_.Flags -like "r5a:*" }).Count
 $cR5b = @($allRecords | Where-Object { $_.Flags -like "r5b:*" }).Count
 $cR5c = @($allRecords | Where-Object { $_.Flags -like "r5c:*" }).Count
+$cR6  = @($allRecords | Where-Object { $_.Flags -like "r6:*" }).Count
+$cR7  = @($allRecords | Where-Object { $_.Flags -like "r7:*" }).Count
 $total = $allRecords.Count
 
 $groups = $allRecords | Group-Object FS | Sort-Object Name
@@ -171,11 +200,11 @@ body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:13px;li
 .wrap{max-width:1380px;margin:0 auto;padding:20px 16px}
 h1{font-size:18px;font-weight:700;margin-bottom:3px}
 .sub{color:#57606a;font-size:12px;margin-bottom:16px}
-.kpi-row{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:18px}
+.kpi-row{display:grid;grid-template-columns:repeat(9,1fr);gap:8px;margin-bottom:18px}
 .kpi{background:#f7f8fa;border:1px solid #e5e7eb;border-radius:6px;padding:8px 10px}
 .kpi .num{font-size:22px;font-weight:700}.kpi .lbl{font-size:10px;color:#57606a;margin-top:1px}
 .c1 .num{color:#b91c1c}.c2 .num{color:#b45309}.c3 .num{color:#7c5cd8}.c4 .num{color:#1d4ed8}
-.c5 .num{color:#047857}.c6 .num{color:#b45309}.c7 .num{color:#7c5cd8}
+.c5 .num{color:#047857}.c6 .num{color:#b45309}.c7 .num{color:#7c5cd8}.c8 .num{color:#0e7490}
 .rules{background:#f7f8fa;border:1px solid #e5e7eb;border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:11px}
 .rules h3{font-size:12px;font-weight:600;margin-bottom:6px}
 .rules table{font-size:11px;width:100%;border-collapse:collapse}
@@ -201,6 +230,8 @@ tbody tr:hover td{background:#f0f6ff}
 .be{background:#fee2e2;color:#991b1b}.bc{background:#fef3c7;color:#92400e}
 .bf{background:#ede9fe;color:#5b21b6}.ba{background:#dbeafe;color:#1e40af}
 .r5a{background:#dcfce7;color:#166534}.r5b{background:#ffedd5;color:#9a3412}.r5c{background:#fce7f3;color:#9d174d}
+.r6{background:#cffafe;color:#155e75}
+.r7{background:#fef9c3;color:#713f12}
 .seat-link{color:#3b82d4;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
 .seat-link:hover{text-decoration:underline}
 footer{margin-top:28px;padding-top:10px;border-top:1px solid #e5e7eb;text-align:center;font-size:11px;color:#57606a}
@@ -218,6 +249,8 @@ $null = $sb.AppendLine("<div class='kpi-row'>
   <div class='kpi c5'><div class='num'>$cR5a</div><div class='lbl'>Recruiting w/o Ticket</div></div>
   <div class='kpi c6'><div class='num'>$cR5b</div><div class='lbl'>FA Bench/Rolloff with Hiring Ticket</div></div>
   <div class='kpi c7'><div class='num'>$cR5c</div><div class='lbl'>SubK / FG Mismatch</div></div>
+  <div class='kpi c8'><div class='num'>$cR6</div><div class='lbl'>Backfill N but Ranking 999</div></div>
+  <div class='kpi c1'><div class='num'>$cR7</div><div class='lbl'>Confirmed &gt; 2 Working Days</div></div>
 </div>")
 
 $null = $sb.AppendLine("<div class='rules'><h3>Rule Definitions</h3><table><thead><tr><th>Rule</th><th>Condition</th><th>Flag</th></tr></thead><tbody>
@@ -231,6 +264,8 @@ $null = $sb.AppendLine("<div class='rules'><h3>Rule Definitions</h3><table><thea
 <tr><td>R5a</td><td>Track = Actively recruiting AND Hiring Ticket (AskFile) is blank</td><td><span class='badge r5a'>No Hiring Ticket</span></td></tr>
 <tr><td>R5b</td><td>FA = Bench/Rolloff AND Hiring Ticket (AskFile) is non-blank</td><td><span class='badge r5b'>FA Bench/Rolloff with Hiring Ticket</span></td></tr>
 <tr><td>R5c</td><td>Track = Contractor track types AND Fieldglass Request Flag = N or blank</td><td><span class='badge r5c'>SubK/FG Mismatch</span></td></tr>
+<tr><td>R6</td><td>Backfilled = N AND Priority Ranking = 999</td><td><span class='badge r6'>Backfill N but Ranking 999</span></td></tr>
+<tr><td>R7</td><td>Candidate Disposition = Confirmed AND Confirmed Date is more than 2 working days before today</td><td><span class='badge r7'>Candidate confirmed more than 2 days</span></td></tr>
 </tbody></table></div>")
 
 $null = $sb.AppendLine("<div class='legend'>
@@ -241,6 +276,8 @@ $null = $sb.AppendLine("<div class='legend'>
   <span><span class='badge r5a'>No Hiring Ticket</span> Recruiting w/o AskFile ticket</span>
   <span><span class='badge r5b'>FA Bench/Rolloff with Hiring Ticket</span> Bench/Rolloff FA but has AskFile ticket</span>
   <span><span class='badge r5c'>SubK/FG Mismatch</span> Contractor track but FG blank/N</span>
+  <span><span class='badge r6'>Backfill N but Ranking 999</span> Backfilled=N with Priority Ranking 999</span>
+  <span><span class='badge r7'>Candidate confirmed more than 2 days</span> Confirmed Disposition but Confirmed Date &gt; 2 working days ago</span>
 </div>")
 
 # TOC
@@ -285,4 +322,48 @@ $out = $sb.ToString()
 $outPath = Join-Path $root "IND_July2026_Compliance_by_FS.html"
 [System.IO.File]::WriteAllText($outPath, $out, [System.Text.Encoding]::UTF8)
 Write-Host "Done. Size: $([math]::Round($out.Length/1KB,1)) KB | Records: $total"
+
+# =============================================================================
+# SEND COMPLIANCE EMAILS — one per FS Intranet ID, CC smouttou@in.ibm.com + additional recipients
+# Set $sendEmails = $true only when you explicitly want to dispatch emails.
+# =============================================================================
+$sendEmails = $false   # <-- change to $true when ready to send
+
+if ($sendEmails) {
+
+$reportLink = "https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/main/IND_July2026_Compliance_by_FS.html"
+$cc         = "smouttou@in.ibm.com;rakmukhe@in.ibm.com;jayghosh@in.ibm.com;manjhans@in.ibm.com;Dineshkgupta@in.ibm.com"
+
+$fsList = $groups | Select-Object -ExpandProperty Name | Where-Object { $_ -ne "(blank)" }
+
+$outlook = New-Object -ComObject Outlook.Application
+foreach ($fs in $fsList) {
+    $body = @"
+Hi,
+
+Your open seats have been flagged for non-compliance items in the IBM Industrial Sector July 2026 Demand Compliance Report.
+
+Please review your section in the report at the link below and action all flagged compliance items at the earliest - latest by end of day tomorrow.
+
+Report Link:
+$reportLink
+
+Regards,
+Dinesh Gupta
+IBM Industrial Sector - Staffing
+"@
+    $mail = $outlook.CreateItem(0)
+    $mail.To      = $fs
+    $mail.CC      = $cc
+    $mail.Subject = "Action Required: IBM Industrial Demand Compliance - July 2026"
+    $mail.Body    = $body
+    $mail.Send()
+    Write-Host "Sent to: $fs (CC: $cc)"
+    Start-Sleep -Milliseconds 500
+}
+Write-Host "All $($fsList.Count) emails sent."
+
+} else {
+    Write-Host "Email sending skipped. Set `$sendEmails = `$true to dispatch."
+}
 

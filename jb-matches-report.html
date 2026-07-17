@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Industrial WFM – Bench/Rolloff Match Report</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px; line-height: 1.6; color: #1f2328; background: #ffffff;
+  }
+  .page { max-width: 960px; margin: 0 auto; padding: 28px 20px 48px; }
+  header { border-bottom: 2px solid #003366; padding-bottom: 14px; margin-bottom: 24px; }
+  header h1 { font-size: 20px; font-weight: 700; color: #003366; }
+  header .meta { font-size: 12px; color: #57606a; margin-top: 4px; }
+  .summary-bar {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    background: #f7f8fa; border: 1px solid #e5e7eb;
+    border-radius: 6px; padding: 14px 18px; margin-bottom: 28px;
+  }
+  .stat { text-align: center; }
+  .stat .num { font-size: 26px; font-weight: 700; color: #003366; line-height: 1; }
+  .stat .lbl { font-size: 11px; color: #57606a; margin-top: 2px; }
+  .fs-section { margin-bottom: 36px; }
+  .fs-header {
+    background: #003366; color: #fff; padding: 9px 14px;
+    border-radius: 5px 5px 0 0; font-size: 13px; font-weight: 600;
+  }
+  .fs-body { border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 5px 5px; padding: 14px; }
+  .seat-block { margin-bottom: 16px; }
+  .seat-block:last-child { margin-bottom: 0; }
+  .seat-header {
+    background: #f0f4ff; border-left: 4px solid #3b82d4;
+    padding: 7px 12px; font-size: 12px; font-weight: 600;
+    color: #1f2328; margin-bottom: 0;
+  }
+  .seat-header .seat-id { color: #003366; font-size: 13px; }
+  .seat-meta { font-size: 11px; color: #57606a; margin-top: 2px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 0; font-size: 12px; }
+  thead tr th {
+    background: #003366; color: #fff; padding: 6px 10px;
+    text-align: left; font-weight: 600; white-space: nowrap;
+  }
+  tbody tr:nth-child(even) td { background: #f7f8fa; }
+  tbody tr td { padding: 5px 10px; border-bottom: 1px solid #e5e7eb; vertical-align: middle; }
+  .badge {
+    display: inline-block; padding: 2px 7px; border-radius: 10px;
+    font-size: 11px; font-weight: 600; white-space: nowrap;
+  }
+  .badge-available { background: #d4edda; color: #155724; }
+  .badge-proposed  { background: #fff3cd; color: #856404; }
+  .badge-other     { background: #cfe2ff; color: #084298; }
+  .toc { margin-bottom: 24px; }
+  .toc h2 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #003366; }
+  .toc ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .toc li a {
+    display: block; background: #f0f4ff; border: 1px solid #c7d7f8;
+    border-radius: 4px; padding: 4px 10px; color: #003366;
+    text-decoration: none; font-size: 12px;
+  }
+  .toc li a:hover { background: #dce8ff; }
+  footer {
+    text-align: center; font-size: 12px; color: #57606a;
+    border-top: 1px solid #e5e7eb; padding-top: 14px; margin-top: 40px;
+  }
+  @media print { body { font-size: 11px; } .page { padding: 10px; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>Industrial WFM — Bench / Rolloff Match Report</h1>
+  <div class="meta">Generated: 18 Jul 2026 &nbsp;|&nbsp; Source: OS vs BenchRollOff.xlsx &nbsp;|&nbsp; Sheet: JBMatches</div>
+</header>
+
+<div class="summary-bar">
+  <div class="stat"><div class="num">48</div><div class="lbl">Total Matches</div></div>
+  <div class="stat"><div class="num">8</div><div class="lbl">Fulfillment Specialists</div></div>
+  <div class="stat"><div class="num">30</div><div class="lbl">Open Seats</div></div>
+  <div class="stat"><div class="num">29</div><div class="lbl">Unique Practitioners</div></div>
+</div>
+
+<div class="toc">
+  <h2>Fulfillment Specialists</h2>
+  <ul>
+    <li><a href="#avril.williams@in.ibm.com">avril.williams@in.ibm.com</a></li>
+    <li><a href="#binnin.roy.d@ibm.com">binnin.roy.d@ibm.com</a></li>
+    <li><a href="#bussamanohar@in.ibm.com">bussamanohar@in.ibm.com</a></li>
+    <li><a href="#deepever@in.ibm.com">deepever@in.ibm.com</a></li>
+    <li><a href="#mohammed.faizal@ibm.com">mohammed.faizal@ibm.com</a></li>
+    <li><a href="#poojac123@in.ibm.com">poojac123@in.ibm.com</a></li>
+    <li><a href="#shruthi.j3@ibm.com">shruthi.j3@ibm.com</a></li>
+    <li><a href="#tangoswa@in.ibm.com">tangoswa@in.ibm.com</a></li>
+  </ul>
+</div>
+
+<!-- FS: avril.williams@in.ibm.com -->
+<div class="fs-section" id="avril.williams@in.ibm.com">
+  <div class="fs-header">avril.williams@in.ibm.com &nbsp;|&nbsp; 3 Seats &nbsp;|&nbsp; 9 Matches</div>
+  <div class="fs-body">
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5768952</span>
+        <div class="seat-meta">DAIMLER TRUCKS NORTH AMERICA LLC &nbsp;|&nbsp; Package Specialist-SAP HANA Application Security &nbsp;|&nbsp; Band 7A &nbsp;|&nbsp; Start: 06/Jul/26 &nbsp;|&nbsp; PAL: Ravi Kasi &nbsp;|&nbsp; PM: satimani@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006E6D744</td><td>Anudeep Uttaravilli</td><td>Package Specialist-SAP HANA Application Security</td><td>Hyderabad</td><td>01/Jan/00</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5780565</span>
+        <div class="seat-meta">Arkema &nbsp;|&nbsp; Package Consultant-SAP HANA SCM SD &nbsp;|&nbsp; Band 7A &nbsp;|&nbsp; Start: 14/Aug/26 &nbsp;|&nbsp; PAL: Anirban Chatterjee &nbsp;|&nbsp; PM: Supriya.Singh@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006CSS744</td><td>Sanalkumar Ts</td><td>Package Consultant-SAP HANA SCM SD</td><td>Kochi</td><td>09/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006CZ3744</td><td>Anjali Negi</td><td>Package Consultant-SAP HANA SCM SD</td><td>(no value available)</td><td>23/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006D8K744</td><td>Shyam Sundarraj</td><td>Package Consultant-SAP HANA SCM SD</td><td>(no value available)</td><td>01/Jan/00</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+        <tr><td>006DQA744</td><td>B Sravani</td><td>Package Consultant-SAP HANA SCM SD</td><td>Hyderabad</td><td>01/Jan/00</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5791499</span>
+        <div class="seat-meta">Rolls Royce &nbsp;|&nbsp; Package Consultant-SAP HANA SCM SD &nbsp;|&nbsp; Band 7A &nbsp;|&nbsp; Start: 20/Jul/26 &nbsp;|&nbsp; PAL: Vineet Mehrotra &nbsp;|&nbsp; PM: Karolina.Schabowska@ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006CSS744</td><td>Sanalkumar Ts</td><td>Package Consultant-SAP HANA SCM SD</td><td>Kochi</td><td>09/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006CZ3744</td><td>Anjali Negi</td><td>Package Consultant-SAP HANA SCM SD</td><td>(no value available)</td><td>23/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006D8K744</td><td>Shyam Sundarraj</td><td>Package Consultant-SAP HANA SCM SD</td><td>(no value available)</td><td>01/Jan/00</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+        <tr><td>006DQA744</td><td>B Sravani</td><td>Package Consultant-SAP HANA SCM SD</td><td>Hyderabad</td><td>01/Jan/00</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+</div>
+
+<!-- FS: binnin.roy.d@ibm.com -->
+<div class="fs-section" id="binnin.roy.d@ibm.com">
+  <div class="fs-header">binnin.roy.d@ibm.com &nbsp;|&nbsp; 4 Seats &nbsp;|&nbsp; 4 Matches</div>
+  <div class="fs-body">
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5704283</span>
+        <div class="seat-meta">Toyota Motor North America &nbsp;|&nbsp; Application Developer-Open Source &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 03/Aug/26 &nbsp;|&nbsp; PAL: Mohan B Bachhav &nbsp;|&nbsp; PM: Krishnakanth.Kothakota@ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006E8Y744</td><td>Saloni Jain</td><td>Application Developer-Open Source</td><td>Pune</td><td>01/Jan/00</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5741032</span>
+        <div class="seat-meta">Toyota Motor North America &nbsp;|&nbsp; Application Developer-Open Source &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 03/Aug/26 &nbsp;|&nbsp; PAL: Mohan B Bachhav &nbsp;|&nbsp; PM: Krishnakanth.Kothakota@ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006E8Y744</td><td>Saloni Jain</td><td>Application Developer-Open Source</td><td>Pune</td><td>01/Jan/00</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5741048</span>
+        <div class="seat-meta">Toyota Motor North America &nbsp;|&nbsp; Application Developer-Open Source &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 03/Aug/26 &nbsp;|&nbsp; PAL: Mohan B Bachhav &nbsp;|&nbsp; PM: Krishnakanth.Kothakota@ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006E8Y744</td><td>Saloni Jain</td><td>Application Developer-Open Source</td><td>Pune</td><td>01/Jan/00</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5741049</span>
+        <div class="seat-meta">Toyota Motor North America &nbsp;|&nbsp; Application Developer-Open Source &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 03/Aug/26 &nbsp;|&nbsp; PAL: Mohan B Bachhav &nbsp;|&nbsp; PM: Krishnakanth.Kothakota@ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006E8Y744</td><td>Saloni Jain</td><td>Application Developer-Open Source</td><td>Pune</td><td>01/Jan/00</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+</div>
+
+<!-- FS: bussamanohar@in.ibm.com -->
+<div class="fs-section" id="bussamanohar@in.ibm.com">
+  <div class="fs-header">bussamanohar@in.ibm.com &nbsp;|&nbsp; 5 Seats &nbsp;|&nbsp; 13 Matches</div>
+  <div class="fs-body">
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5656946</span>
+        <div class="seat-meta">Orano &nbsp;|&nbsp; Application Developer-SAP UX &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 15/Jul/26 &nbsp;|&nbsp; PAL: Anirban Chatterjee &nbsp;|&nbsp; PM: ssajit@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006E7Y744</td><td>Bimal Samanta</td><td>Application Developer-SAP UX</td><td>Kolkata</td><td>01/Jan/00</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5754676</span>
+        <div class="seat-meta">VENTIA AUSTRALIA PTY LTD &nbsp;|&nbsp; Application Developer-SAP ABAP HANA &nbsp;|&nbsp; Band 6B &nbsp;|&nbsp; Start: 27/Jul/26 &nbsp;|&nbsp; PAL: Apratim Mahalanobis &nbsp;|&nbsp; PM: arunava.choudhury@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006BPJ744</td><td>Aishwarya .</td><td>Application Developer-SAP ABAP HANA</td><td>Bangalore</td><td>27/May/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006D4J744</td><td>Pankaj Nagare</td><td>Application Developer-SAP ABAP HANA</td><td>Pune</td><td>19/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006D68744</td><td>Sanchi Dhengre</td><td>Application Developer-SAP ABAP HANA</td><td>Pune</td><td>30/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006DV2744</td><td>V Akshid .</td><td>Application Developer-SAP ABAP HANA</td><td>Pune</td><td>30/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5784924</span>
+        <div class="seat-meta">VENTIA AUSTRALIA PTY LTD &nbsp;|&nbsp; Application Developer-SAP ABAP HANA &nbsp;|&nbsp; Band 6B &nbsp;|&nbsp; Start: 29/Jul/26 &nbsp;|&nbsp; PAL: Apratim Mahalanobis &nbsp;|&nbsp; PM: arunava.choudhury@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006BPJ744</td><td>Aishwarya .</td><td>Application Developer-SAP ABAP HANA</td><td>Bangalore</td><td>27/May/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006D4J744</td><td>Pankaj Nagare</td><td>Application Developer-SAP ABAP HANA</td><td>Pune</td><td>19/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006D68744</td><td>Sanchi Dhengre</td><td>Application Developer-SAP ABAP HANA</td><td>Pune</td><td>30/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006DV2744</td><td>V Akshid .</td><td>Application Developer-SAP ABAP HANA</td><td>Pune</td><td>30/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5788699</span>
+        <div class="seat-meta">THE BOEING CO &nbsp;|&nbsp; Package Consultant-SAP UX &nbsp;|&nbsp; Band 7A &nbsp;|&nbsp; Start: 10/Aug/26 &nbsp;|&nbsp; PAL: Vineet Mehrotra &nbsp;|&nbsp; PM: vrushali.joshi@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006DSM744</td><td>Shahabaz Madihalli</td><td>Package Consultant-SAP UX</td><td>Bangalore</td><td>30/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5796283</span>
+        <div class="seat-meta">Orano &nbsp;|&nbsp; Application Developer-SAP ABAP HANA &nbsp;|&nbsp; Band 6B &nbsp;|&nbsp; Start: 12/Aug/26 &nbsp;|&nbsp; PAL: Anirban Chatterjee &nbsp;|&nbsp; PM: manojvkumar@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006BPJ744</td><td>Aishwarya .</td><td>Application Developer-SAP ABAP HANA</td><td>Bangalore</td><td>27/May/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006D4J744</td><td>Pankaj Nagare</td><td>Application Developer-SAP ABAP HANA</td><td>Pune</td><td>19/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006D68744</td><td>Sanchi Dhengre</td><td>Application Developer-SAP ABAP HANA</td><td>Pune</td><td>30/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006DV2744</td><td>V Akshid .</td><td>Application Developer-SAP ABAP HANA</td><td>Pune</td><td>30/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+</div>
+
+<!-- FS: deepever@in.ibm.com -->
+<div class="fs-section" id="deepever@in.ibm.com">
+  <div class="fs-header">deepever@in.ibm.com &nbsp;|&nbsp; 2 Seats &nbsp;|&nbsp; 2 Matches</div>
+  <div class="fs-body">
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5696756</span>
+        <div class="seat-meta">FLIR SYSTEMS INC &nbsp;|&nbsp; Quality Engineer-Test Management.SAP &nbsp;|&nbsp; Band 7A &nbsp;|&nbsp; Start: 27/Jul/26 &nbsp;|&nbsp; PAL: Prem S Challa &nbsp;|&nbsp; PM: rramanar@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006A3Z744</td><td>Anshuman Kumar</td><td>Quality Engineer-Test Management.SAP</td><td>Bangalore</td><td>01/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5696767</span>
+        <div class="seat-meta">FLIR SYSTEMS INC &nbsp;|&nbsp; Quality Engineer-Test Management.SAP &nbsp;|&nbsp; Band 7A &nbsp;|&nbsp; Start: 03/Aug/26 &nbsp;|&nbsp; PAL: Prem S Challa &nbsp;|&nbsp; PM: rramanar@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006A3Z744</td><td>Anshuman Kumar</td><td>Quality Engineer-Test Management.SAP</td><td>Bangalore</td><td>01/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+</div>
+
+<!-- FS: mohammed.faizal@ibm.com -->
+<div class="fs-section" id="mohammed.faizal@ibm.com">
+  <div class="fs-header">mohammed.faizal@ibm.com &nbsp;|&nbsp; 2 Seats &nbsp;|&nbsp; 2 Matches</div>
+  <div class="fs-body">
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5782149</span>
+        <div class="seat-meta">PLAINS ALL AMERICAN PIPELINE LP &nbsp;|&nbsp; Application Developer-Mobile &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 12/Aug/26 &nbsp;|&nbsp; PAL: Saurabh Chaturvedi &nbsp;|&nbsp; PM: strivedi@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006DIZ744</td><td>Kiran S Jakkannavar</td><td>Application Developer-Mobile</td><td>Bangalore</td><td>15/Jun/26</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5782152</span>
+        <div class="seat-meta">PLAINS ALL AMERICAN PIPELINE LP &nbsp;|&nbsp; Application Developer-Mobile &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 12/Aug/26 &nbsp;|&nbsp; PAL: Saurabh Chaturvedi &nbsp;|&nbsp; PM: strivedi@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006DIZ744</td><td>Kiran S Jakkannavar</td><td>Application Developer-Mobile</td><td>Bangalore</td><td>15/Jun/26</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+</div>
+
+<!-- FS: poojac123@in.ibm.com -->
+<div class="fs-section" id="poojac123@in.ibm.com">
+  <div class="fs-header">poojac123@in.ibm.com &nbsp;|&nbsp; 1 Seat &nbsp;|&nbsp; 1 Match</div>
+  <div class="fs-body">
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5736820</span>
+        <div class="seat-meta">ROLLS ROYCE PLC &nbsp;|&nbsp; Application Developer-Asset Management &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 03/Aug/26 &nbsp;|&nbsp; PAL: Ravi Kasi &nbsp;|&nbsp; PM: Joanne.Conopo@ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006CHO744</td><td>Sayali Mhaske</td><td>Application Developer-Asset Management</td><td>Pune</td><td>12/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+</div>
+
+<!-- FS: shruthi.j3@ibm.com -->
+<div class="fs-section" id="shruthi.j3@ibm.com">
+  <div class="fs-header">shruthi.j3@ibm.com &nbsp;|&nbsp; 3 Seats &nbsp;|&nbsp; 3 Matches</div>
+  <div class="fs-body">
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5737225</span>
+        <div class="seat-meta">Brother International &nbsp;|&nbsp; Package Consultant-SAP HANA FIN FI &nbsp;|&nbsp; Band 9 &nbsp;|&nbsp; Start: 15/Jul/26 &nbsp;|&nbsp; PAL: Anindya Majumder &nbsp;|&nbsp; PM: anbhatta@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006DNO744</td><td>Rajesh Kumar</td><td>Package Consultant-SAP HANA FIN FI</td><td>Bangalore</td><td>26/Jun/26</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5738838</span>
+        <div class="seat-meta">JET Tankstellen Deutschland GmbH &nbsp;|&nbsp; Package Consultant-SAP IS Oil &amp; Gas &nbsp;|&nbsp; Band 8 &nbsp;|&nbsp; Start: 03/Aug/26 &nbsp;|&nbsp; PAL: Anirban Chatterjee &nbsp;|&nbsp; PM: Manoranjan.Pandey@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006EGY744</td><td>Venkata Siva Mandali</td><td>Package Consultant-SAP IS Oil &amp; Gas</td><td>Bangalore</td><td>30/Jun/26</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5784754</span>
+        <div class="seat-meta">VENTIA AUSTRALIA PTY LTD &nbsp;|&nbsp; Package Consultant-SAP HANA FIN CO &nbsp;|&nbsp; Band 8 &nbsp;|&nbsp; Start: 29/Jul/26 &nbsp;|&nbsp; PAL: Apratim Mahalanobis &nbsp;|&nbsp; PM: arunava.choudhury@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006E2R744</td><td>Vara Rachakonda</td><td>Package Consultant-SAP HANA FIN CO</td><td>Hyderabad</td><td>30/Jun/26</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+</div>
+
+<!-- FS: tangoswa@in.ibm.com -->
+<div class="fs-section" id="tangoswa@in.ibm.com">
+  <div class="fs-header">tangoswa@in.ibm.com &nbsp;|&nbsp; 9 Seats &nbsp;|&nbsp; 14 Matches</div>
+  <div class="fs-body">
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5759830</span>
+        <div class="seat-meta">CAF &nbsp;|&nbsp; Package Consultant-SAP Ariba &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 27/Jul/26 &nbsp;|&nbsp; PAL: Apratim Mahalanobis &nbsp;|&nbsp; PM: arunava.choudhury@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006CF1744</td><td>Priyanka Konathala</td><td>Package Consultant-SAP Ariba</td><td>Hyderabad</td><td>05/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5759831</span>
+        <div class="seat-meta">CAF &nbsp;|&nbsp; Package Consultant-SAP Ariba &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 30/Jul/26 &nbsp;|&nbsp; PAL: Apratim Mahalanobis &nbsp;|&nbsp; PM: sanjaver@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006CF1744</td><td>Priyanka Konathala</td><td>Package Consultant-SAP Ariba</td><td>Hyderabad</td><td>05/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5779985</span>
+        <div class="seat-meta">Medtronic INC &nbsp;|&nbsp; Package Consultant-SAP HANA SCM MM &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 03/Aug/26 &nbsp;|&nbsp; PAL: Awadhesh Agarwal &nbsp;|&nbsp; PM: hemant.poddar@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006DM5744</td><td>Ellora Maiti</td><td>Package Consultant-SAP HANA SCM MM</td><td>Kolkata</td><td>16/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006EFL744</td><td>Munilakshmi M</td><td>Package Consultant-SAP HANA SCM MM</td><td>Bangalore</td><td>06/Jul/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5780373</span>
+        <div class="seat-meta">AMKOR TECHNOLOGY INC. &nbsp;|&nbsp; Package Consultant-SAP Ariba &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 03/Aug/26 &nbsp;|&nbsp; PAL: Prem S Challa &nbsp;|&nbsp; PM: rameshevani@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006CF1744</td><td>Priyanka Konathala</td><td>Package Consultant-SAP Ariba</td><td>Hyderabad</td><td>05/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5780374</span>
+        <div class="seat-meta">AMKOR TECHNOLOGY INC. &nbsp;|&nbsp; Package Consultant-SAP Ariba &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 03/Aug/26 &nbsp;|&nbsp; PAL: Prem S Challa &nbsp;|&nbsp; PM: rameshevani@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006CF1744</td><td>Priyanka Konathala</td><td>Package Consultant-SAP Ariba</td><td>Hyderabad</td><td>05/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5784224</span>
+        <div class="seat-meta">Arkema &nbsp;|&nbsp; Package Consultant-SAP HANA SCM PM &nbsp;|&nbsp; Band 7A &nbsp;|&nbsp; Start: 10/Aug/26 &nbsp;|&nbsp; PAL: Anirban Chatterjee &nbsp;|&nbsp; PM: atulsaxena@ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006D5X744</td><td>Sandip Bhattacharjee</td><td>Package Consultant-SAP HANA SCM PM</td><td>Kolkata</td><td>26/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5784837</span>
+        <div class="seat-meta">VENTIA AUSTRALIA PTY LTD &nbsp;|&nbsp; Package Consultant-SAP HANA SCM MM &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 29/Jul/26 &nbsp;|&nbsp; PAL: Apratim Mahalanobis &nbsp;|&nbsp; PM: arunava.choudhury@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006DM5744</td><td>Ellora Maiti</td><td>Package Consultant-SAP HANA SCM MM</td><td>Kolkata</td><td>16/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006EFL744</td><td>Munilakshmi M</td><td>Package Consultant-SAP HANA SCM MM</td><td>Bangalore</td><td>06/Jul/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5790315</span>
+        <div class="seat-meta">EPIROC &nbsp;|&nbsp; Package Consultant-SAP HANA SCM MM &nbsp;|&nbsp; Band 7B &nbsp;|&nbsp; Start: 10/Aug/26 &nbsp;|&nbsp; PAL: Anindya Majumder &nbsp;|&nbsp; PM: JAGADEESH.ADAPA@ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006DM5744</td><td>Ellora Maiti</td><td>Package Consultant-SAP HANA SCM MM</td><td>Kolkata</td><td>16/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+        <tr><td>006EFL744</td><td>Munilakshmi M</td><td>Package Consultant-SAP HANA SCM MM</td><td>Bangalore</td><td>06/Jul/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5791502</span>
+        <div class="seat-meta">Rolls Royce &nbsp;|&nbsp; Package Consultant-SAP HANA SCM PM &nbsp;|&nbsp; Band 7A &nbsp;|&nbsp; Start: 20/Jul/26 &nbsp;|&nbsp; PAL: Vineet Mehrotra &nbsp;|&nbsp; PM: Karolina.Schabowska@ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006D5X744</td><td>Sandip Bhattacharjee</td><td>Package Consultant-SAP HANA SCM PM</td><td>Kolkata</td><td>26/Jun/26</td><td><span class="badge badge-proposed">PROPOSED IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+    <div class="seat-block">
+      <div class="seat-header">
+        <span class="seat-id">5796289</span>
+        <div class="seat-meta">VENTIA AUSTRALIA PTY LTD &nbsp;|&nbsp; Package Consultant-SAP HANA SCM MM &nbsp;|&nbsp; Band 8 &nbsp;|&nbsp; Start: 29/Jul/26 &nbsp;|&nbsp; PAL: Apratim Mahalanobis &nbsp;|&nbsp; PM: arunava.choudhury@in.ibm.com</div>
+      </div>
+      <table><thead><tr><th>Talent ID</th><th>Practitioner Name</th><th>JRS Primary</th><th>GD Center</th><th>Availability</th><th>Bench Category</th></tr></thead><tbody>
+        <tr><td>006CM3744</td><td>Muppuri Siva</td><td>Package Consultant-SAP HANA SCM MM</td><td>Hyderabad</td><td>09/Jun/26</td><td><span class="badge badge-available">AVAILABLE - VISIBLE IN PMP</span></td></tr>
+      </tbody></table>
+    </div>
+
+  </div>
+</div>
+
+<footer>Made with IBM Bob</footer>
+</div>
+</body>
+</html>

@@ -18,7 +18,7 @@
 # =============================================================================
 
 $root = $PSScriptRoot
-$raw = Get-Content "$root\.bob\tmp\xlsx-dumps\Ind July month 30 days demands-323aef8ed5271834\30days.json" -Raw | ConvertFrom-Json
+$raw = Get-Content "$root\.bob\tmp\xlsx-dumps\Ind July month 30 days demands-21216200d5151cc5\30days.json" -Raw | ConvertFrom-Json
 $headers = $raw.headers
 $rows    = $raw.rows
 
@@ -355,7 +355,7 @@ IBM Industrial Sector - Staffing
     $mail = $outlook.CreateItem(0)
     $mail.To      = $fs
     $mail.CC      = $cc
-    $mail.Subject = "Action Required: IBM Industrial Demand Compliance - July 2026"
+    $mail.Subject = "Action Required: IBM Industrial Non Compliance Report - 30 days demands 2026"
     $mail.Body    = $body
     $mail.Send()
     Write-Host "Sent to: $fs (CC: $cc)"

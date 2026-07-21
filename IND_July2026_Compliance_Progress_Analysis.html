@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>IBM Industrial July 2026 – Compliance Progress Analysis</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;line-height:1.6;background:#fff;color:#1f2328}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px}
+h1{font-size:18px;font-weight:700;margin-bottom:4px}
+.sub{color:#57606a;font-size:12px;margin-bottom:24px}
+h2{font-size:14px;font-weight:700;margin:28px 0 10px;border-bottom:1px solid #e5e7eb;padding-bottom:5px}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.kpi{background:#f7f8fa;border:1px solid #e5e7eb;border-radius:6px;padding:12px 14px}
+.kpi .num{font-size:26px;font-weight:700}.kpi .lbl{font-size:11px;color:#57606a;margin-top:2px}
+.green .num{color:#166534}.red .num{color:#b91c1c}.blue .num{color:#1d4ed8}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
+th{background:#f7f8fa;border:1px solid #e5e7eb;padding:7px 8px;text-align:center;font-weight:600;white-space:nowrap}
+th.left{text-align:left}
+td{border:1px solid #e5e7eb;padding:6px 8px;text-align:center;vertical-align:middle}
+td.label{text-align:left;font-weight:600;font-size:11px;background:#f7f8fa;white-space:nowrap}
+tr.total-row td{font-weight:700;background:#1f2328;color:#fff}
+tr.total-row td.label{background:#1f2328;color:#fff}
+.bar-section{margin-bottom:24px}
+.bar-row{display:flex;align-items:center;margin-bottom:7px;gap:8px}
+.bar-label{width:52px;font-size:11px;font-weight:600;color:#57606a;flex-shrink:0;text-align:right}
+.bar-wrap{flex:1;background:#f0f0f0;border-radius:3px;height:20px;position:relative}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:11px;font-weight:700;color:#fff;min-width:28px}
+.bar-v1{background:#e57373}.bar-v2{background:#b91c1c}.bar-v3{background:#f59e0b}
+.bar-v4{background:#f59e0b}.bar-v5{background:#3b82d4}.bar-v6{background:#166534}
+.bar-num{font-size:11px;color:#57606a;flex-shrink:0;width:28px;text-align:right}
+.rule-tbl td{font-size:11px}
+.rule-tbl td.label{font-size:11px;max-width:180px;white-space:normal}
+.delta-good{color:#166534;font-weight:700}.delta-bad{color:#b91c1c;font-weight:700}.delta-neu{color:#57606a}
+.ver-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.ver-chip{border:1px solid #e5e7eb;border-radius:20px;padding:3px 12px;font-size:11px;color:#3b82d4;text-decoration:none;background:#f7f8fa}
+.ver-chip:hover{background:#e5e7eb}
+.latest{border-color:#166534;color:#166534;font-weight:700}
+.insights{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.card{background:#f7f8fa;border:1px solid #e5e7eb;border-radius:6px;padding:12px 14px;font-size:12px}
+.card strong{display:block;font-size:12px;margin-bottom:4px}
+footer{margin-top:32px;padding-top:10px;border-top:1px solid #e5e7eb;text-align:center;font-size:11px;color:#57606a}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>IBM Industrial Sector — July 2026 Demand Compliance</h1>
+<p class="sub">Comparative Progress Analysis &nbsp;|&nbsp; 6 report versions &nbsp;|&nbsp; 13 Jul – 21 Jul 2026 &nbsp;|&nbsp; 9 compliance rules tracked</p>
+
+<h2>Report Versions — Click to Open</h2>
+<div class="ver-links">
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/0118393c0d2eaabada6bf056ac3d4a86e676d66e/IND_July2026_Compliance_by_FS.html" target="_blank">v1 · 13 Jul · 224 flags</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/c7022afde5c0482d5776dc2e9e93f3948711778d/IND_July2026_Compliance_by_FS.html" target="_blank">v2 · 14 Jul · 256 flags</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/b3c8417d34a6ff581d7fc0f45c5deb61af81e8b5/IND_July2026_Compliance_by_FS.html" target="_blank">v3 · 16 Jul · 203 flags</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/3e4b5e6dcb6b7b215e5c738d8b0497bc9d84812a/IND_July2026_Compliance_by_FS.html" target="_blank">v4 · 17 Jul · 239 flags</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/feff8e8c95227e9c806d9358e7f79c218fac4d3c/IND_July2026_Compliance_by_FS.html" target="_blank">v5 · 20 Jul · 178 flags</a>
+  <a class="ver-chip latest" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/266e2dba59da964ffa44a63475c7c083a43755b9/IND_July2026_Compliance_by_FS.html" target="_blank">v6 · 21 Jul · 143 flags ✓ Latest</a>
+</div>
+
+<h2>Overall Progress Summary</h2>
+<div class="kpi-row">
+  <div class="kpi green"><div class="num">44%</div><div class="lbl">Total reduction in flagged records (256 → 143)</div></div>
+  <div class="kpi blue"><div class="num">113</div><div class="lbl">Compliance issues resolved over 8 days</div></div>
+  <div class="kpi red"><div class="num">143</div><div class="lbl">Remaining flags to clear (latest v6)</div></div>
+</div>
+
+<h2>Total Flagged Records — All 6 Versions</h2>
+<div class="bar-section">
+  <div class="bar-row">
+    <span class="bar-label">v1 13Jul</span>
+    <div class="bar-wrap"><div class="bar-fill bar-v1" style="width:87.5%">224</div></div>
+    <span class="bar-num">224</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">v2 14Jul</span>
+    <div class="bar-wrap"><div class="bar-fill bar-v2" style="width:100%">256</div></div>
+    <span class="bar-num">256</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">v3 16Jul</span>
+    <div class="bar-wrap"><div class="bar-fill bar-v3" style="width:79.3%">203</div></div>
+    <span class="bar-num">203</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">v4 17Jul</span>
+    <div class="bar-wrap"><div class="bar-fill bar-v4" style="width:93.4%">239</div></div>
+    <span class="bar-num">239</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">v5 20Jul</span>
+    <div class="bar-wrap"><div class="bar-fill bar-v5" style="width:69.5%">178</div></div>
+    <span class="bar-num">178</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">v6 21Jul</span>
+    <div class="bar-wrap"><div class="bar-fill bar-v6" style="width:55.9%">143</div></div>
+    <span class="bar-num">143</span>
+  </div>
+</div>
+
+<h2>Rule-by-Rule Comparison Across All 6 Versions</h2>
+<table class="rule-tbl">
+  <thead>
+    <tr>
+      <th class="left" style="width:170px">Rule</th>
+      <th>v1<br><span style="font-weight:400;font-size:10px">13 Jul</span></th>
+      <th>v2<br><span style="font-weight:400;font-size:10px">14 Jul</span></th>
+      <th>v3<br><span style="font-weight:400;font-size:10px">16 Jul</span></th>
+      <th>v4<br><span style="font-weight:400;font-size:10px">17 Jul</span></th>
+      <th>v5<br><span style="font-weight:400;font-size:10px">20 Jul</span></th>
+      <th>v6<br><span style="font-weight:400;font-size:10px">21 Jul</span></th>
+      <th>v1→v6<br><span style="font-weight:400;font-size:10px">Change</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="label">R1 — EST Non Compliant</td>
+      <td>52</td><td>77</td><td>58</td><td>68</td><td>64</td><td>39</td>
+      <td class="delta-good">▼ 13</td>
+    </tr>
+    <tr>
+      <td class="label">R2 — Comment Non Compliant</td>
+      <td>146</td><td>157</td><td>125</td><td>152</td><td>61</td><td>37</td>
+      <td class="delta-good">▼ 109</td>
+    </tr>
+    <tr>
+      <td class="label">R3 — Track / Fieldglass Mismatch</td>
+      <td>17</td><td>20</td><td>16</td><td>19</td><td>22</td><td>32</td>
+      <td class="delta-bad">▲ 15</td>
+    </tr>
+    <tr>
+      <td class="label">R4 — Track Type / FA Mismatch</td>
+      <td>84</td><td>108</td><td>77</td><td>84</td><td>97</td><td>63</td>
+      <td class="delta-good">▼ 21</td>
+    </tr>
+    <tr>
+      <td class="label">R5a — Recruiting w/o Ticket</td>
+      <td>5</td><td>7</td><td>11</td><td>26</td><td>12</td><td>10</td>
+      <td class="delta-bad">▲ 5</td>
+    </tr>
+    <tr>
+      <td class="label">R5b — FA Bench/Rolloff + Ticket</td>
+      <td>23</td><td>25</td><td>17</td><td>14</td><td>16</td><td>13</td>
+      <td class="delta-good">▼ 10</td>
+    </tr>
+    <tr>
+      <td class="label">R5c — SubK / FG Mismatch</td>
+      <td>17</td><td>20</td><td>16</td><td>19</td><td>22</td><td>32</td>
+      <td class="delta-bad">▲ 15</td>
+    </tr>
+    <tr>
+      <td class="label">R6 — Backfill N + Ranking 999</td>
+      <td>—</td><td>—</td><td>1</td><td>1</td><td>1</td><td>0</td>
+      <td class="delta-good">▼ 1 ✓</td>
+    </tr>
+    <tr>
+      <td class="label">R7 — Confirmed &gt; 2 Working Days</td>
+      <td>—</td><td>—</td><td>10</td><td>8</td><td>12</td><td>13</td>
+      <td class="delta-bad">▲ 3</td>
+    </tr>
+    <tr class="total-row">
+      <td class="label">TOTAL FLAGGED</td>
+      <td>224</td><td>256</td><td>203</td><td>239</td><td>178</td><td>143</td>
+      <td class="delta-good" style="color:#6ee7b7">▼ 81</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Key Insights</h2>
+<div class="insights">
+  <div class="card">
+    <strong>Biggest Win — R2 Comments (▼ 109)</strong>
+    Comment Non Compliant dropped from 157 (v2) to just 37 (v6). This is the largest single improvement — FS teams are updating their comments consistently after email nudges.
+  </div>
+  <div class="card">
+    <strong>Needs Attention — R3 &amp; R5c Fieldglass (▲ 15)</strong>
+    Track/Fieldglass and SubK/FG mismatches have actually increased from 17 → 32. Contractor-track demands are not getting Fieldglass flags set correctly.
+  </div>
+  <div class="card">
+    <strong>v2 was the Worst (256 flags)</strong>
+    Day 2 spike happened likely due to new demands being added without compliance. The email campaign after v2 drove a sharp recovery from v3 onwards.
+  </div>
+  <div class="card">
+    <strong>R6 Fully Cleared ✓</strong>
+    Backfill N + Ranking 999 went from 1 to 0 in v6. Fully resolved — no further action needed on this rule.
+  </div>
+  <div class="card">
+    <strong>R4 Track/FA Mismatch (▼ 21)</strong>
+    Reduced from 108 (v2) to 63 (v6) but still the 2nd largest category. FS owners need to align Track Type with Fulfillment Action more carefully.
+  </div>
+  <div class="card">
+    <strong>R7 Confirmed &gt; 2 Days (▲ 13)</strong>
+    Confirmed candidates are not being processed within the 2 working day SLA. This trend is worsening — escalation recommended.
+  </div>
+</div>
+
+<h2>Day-over-Day Change</h2>
+<table>
+  <thead>
+    <tr>
+      <th class="left">Version Transition</th>
+      <th>Before</th>
+      <th>After</th>
+      <th>Change</th>
+      <th>Direction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">v1 → v2 (13→14 Jul)</td><td>224</td><td>256</td><td class="delta-bad">+32</td><td>▲ New demands added</td></tr>
+    <tr><td class="label">v2 → v3 (14→16 Jul)</td><td>256</td><td>203</td><td class="delta-good">−53</td><td>▼ Post email action</td></tr>
+    <tr><td class="label">v3 → v4 (16→17 Jul)</td><td>203</td><td>239</td><td class="delta-bad">+36</td><td>▲ Data refresh spike</td></tr>
+    <tr><td class="label">v4 → v5 (17→20 Jul)</td><td>239</td><td>178</td><td class="delta-good">−61</td><td>▼ Weekend catch-up</td></tr>
+    <tr><td class="label">v5 → v6 (20→21 Jul)</td><td>178</td><td>143</td><td class="delta-good">−35</td><td>▼ Continued improvement</td></tr>
+  </tbody>
+</table>
+
+<footer>Made with IBM Bob</footer>
+</div>
+</body>
+</html>

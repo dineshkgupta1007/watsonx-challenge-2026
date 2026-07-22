@@ -1,3 +1,4 @@
+param([switch]$SendEmails)
 # =============================================================================
 # IBM Industrial Sector – Demand Compliance Report Generator
 # =============================================================================
@@ -384,8 +385,7 @@ Pop-Location
 $fsList     = $groups | Select-Object -ExpandProperty Name | Where-Object { $_ -ne "(blank)" }
 $fsCount    = $fsList.Count
 
-# Accept -SendEmails switch to allow Bob (or caller) to trigger email dispatch without interactive prompt
-param([switch]$SendEmails)
+# $SendEmails switch is declared at top of script (param block)
 $sendEmails = $SendEmails.IsPresent
 
 if (-not $sendEmails -and [Environment]::UserInteractive) {

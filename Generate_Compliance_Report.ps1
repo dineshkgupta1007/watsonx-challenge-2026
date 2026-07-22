@@ -383,8 +383,15 @@ Pop-Location
 # =============================================================================
 $fsList     = $groups | Select-Object -ExpandProperty Name | Where-Object { $_ -ne "(blank)" }
 $fsCount    = $fsList.Count
-$answer     = Read-Host "`nSend compliance emails to $fsCount FS staff? Type YES to confirm"
-$sendEmails = ($answer.Trim().ToUpper() -eq "YES")
+
+# Accept -SendEmails switch to allow Bob (or caller) to trigger email dispatch without interactive prompt
+param([switch]$SendEmails)
+$sendEmails = $SendEmails.IsPresent
+
+if (-not $sendEmails -and [Environment]::UserInteractive) {
+    $answer     = Read-Host "`nSend compliance emails to $fsCount FS staff? Type YES to confirm"
+    $sendEmails = ($answer.Trim().ToUpper() -eq "YES")
+}
 
 if ($sendEmails) {
 

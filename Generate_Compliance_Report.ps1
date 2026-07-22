@@ -135,7 +135,8 @@ foreach ($row in $rows) {
         "challenged seat - fulfillment delay offered",
         "challenged seat - fulfillment delay accepted",
         "challenged seat - resolution in process",
-        "challenged seat - arbitration required"
+        "challenged seat - arbitration required",
+        "challenged seat - non-staffable"
     )
     if (($challengedFAs -contains $faL) -and ($trackL -eq "actively recruiting")) { continue }
 

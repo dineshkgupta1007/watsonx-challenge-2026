@@ -82,7 +82,7 @@ function latestCommentDate($text) {
 }
 
 $refDate    = [datetime]"2026-07-10"
-$commentCut = [datetime]"2026-06-25"
+$commentCut = ([datetime]::Today).AddDays(-15)
 
 # Returns the number of working days (Mon-Fri) between two dates (exclusive of $start, inclusive of $end)
 function workingDaysBetween($start, $end) {
@@ -265,8 +265,9 @@ footer{margin-top:28px;padding-top:10px;border-top:1px solid #e5e7eb;text-align:
 $null = $sb.AppendLine($css)
 $null = $sb.AppendLine('</style></head><body><div class="wrap">')
 $reportDate = (Get-Date).ToString("dd MMM yyyy")
-$null = $sb.AppendLine('<h1>IBM Industrial - July 2026 Demand Compliance by FS Intranet ID</h1>')
-$null = $sb.AppendLine("<p class='sub'>Generated: $reportDate &nbsp;|&nbsp; Source: Ind July month 30 days demands.xlsx &nbsp;|&nbsp; Ref date: 10 Jul 2026 &nbsp;|&nbsp; $total flagged records &nbsp;|&nbsp; Open Seat IDs link to IBM PMP &nbsp;|&nbsp; Additional Comments truncated to 50 chars (hover for full text)</p>")
+$commentCutStr = $commentCut.ToString("dd MMM yyyy")
+$null = $sb.AppendLine('<h1>IBM Industrial - 30 days Demand Compliance by FS Intranet ID</h1>')
+$null = $sb.AppendLine("<p class='sub'>Generated: $reportDate &nbsp;|&nbsp; Source: Ind July month 30 days demands.xlsx &nbsp;|&nbsp; Ref date: 10 Jul 2026 &nbsp;|&nbsp; Comment cut-off: $commentCutStr (15 days) &nbsp;|&nbsp; $total flagged records &nbsp;|&nbsp; Open Seat IDs link to IBM PMP &nbsp;|&nbsp; Additional Comments truncated to 50 chars (hover for full text)</p>")
 
 $null = $sb.AppendLine("<div class='kpi-row'>
   <div class='kpi c1'><div class='num'>$cR1</div><div class='lbl'>EST Non Compliant</div></div>
@@ -282,7 +283,7 @@ $null = $sb.AppendLine("<div class='kpi-row'>
 
 $null = $sb.AppendLine("<div class='rules'><h3>Rule Definitions</h3><table><thead><tr><th>Rule</th><th>Condition</th><th>Flag</th></tr></thead><tbody>
 <tr><td>R1</td><td>Est Strt Dt blank OR &le; 10 Jul 2026</td><td><span class='badge be'>EST Non Compliant</span></td></tr>
-<tr><td>R2</td><td>Additional Comments blank OR last date &lt; 25 Jun 2026</td><td><span class='badge bc'>Comment Non Compliant</span></td></tr>
+<tr><td>R2</td><td>Additional Comments blank OR last date &lt; 15 days from today ($commentCutStr)</td><td><span class='badge bc'>Comment Non Compliant</span></td></tr>
 <tr><td>R3</td><td>Track contains &quot;contractor&quot; AND Fieldglass flag blank/N</td><td><span class='badge bf'>Track Type/Fieldglass mismatch</span></td></tr>
 <tr><td>R4a</td><td>Track = Actively recruiting / New hire identified &rarr; FA must be External hire</td><td><span class='badge ba'>Track Type/FA mismatch</span></td></tr>
 <tr><td>R4b</td><td>Track = Candidate identified / Proj team reviewing / Actively searching / GR being pursued / Not urgent / Roll-off &rarr; FA must be Bench/Rolloff</td><td><span class='badge ba'>Track Type/FA mismatch</span></td></tr>

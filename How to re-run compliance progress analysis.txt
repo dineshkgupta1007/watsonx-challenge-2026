@@ -1,0 +1,94 @@
+============================================================
+IBM Industrial Sector — Compliance Progress Analysis
+How to Re-run & Extend for Future Months
+============================================================
+
+WHAT THIS DOES
+--------------
+Tracks compliance improvement across multiple report versions
+(rule-by-rule breakdown, bar charts, day-over-day delta).
+
+Output file : IND_July2026_Compliance_Progress_Analysis.html
+GitHub link : https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/main/IND_July2026_Compliance_Progress_Analysis.html
+
+
+STEP 1 — Regenerate the compliance report (as usual)
+-----------------------------------------------------
+Just say to Bob:  "regenerate compliance report"
+Bob will:
+  1. Re-dump the xlsx
+  2. Run Generate_Compliance_Report.ps1
+  3. Produce a fresh IND_July2026_Compliance_by_FS.html
+  4. Push to GitHub
+  5. Send emails to all FS
+
+
+STEP 2 — Update the Progress Analysis
+--------------------------------------
+After each new report version is generated, say to Bob:
+  "update compliance progress analysis"
+
+Bob will:
+  - Extract KPI numbers from every git-committed version
+  - Add the new version row to all charts and tables
+  - Push the updated IND_July2026_Compliance_Progress_Analysis.html to GitHub
+
+
+STEP 3 — For a NEW MONTH (e.g. August)
+----------------------------------------
+1. Replace the xlsx file with the new month's data (same filename)
+2. Open Generate_Compliance_Report.ps1 and update lines at the top:
+     $refDate    = "2026-08-10"   (change to new month's reference date)
+     $commentCut = "2026-07-25"   (change to new month's comment cutoff)
+3. Update the output filename if needed (e.g. IND_Aug2026_Compliance_by_FS.html)
+4. Tell Bob: "regenerate compliance report for August"
+
+
+COMPLIANCE RULES TRACKED (9 rules)
+------------------------------------
+Rule  | Flag                          | Description
+------|-------------------------------|------------------------------------------
+R1    | EST Non Compliant             | Est Strt Dt blank or <= ref date
+R2    | Comment Non Compliant         | Comments blank or last date < comment cutoff
+R3    | Track/Fieldglass Mismatch     | Contractor track but FG flag blank/N
+R4    | Track Type/FA Mismatch        | Track and Fulfillment Action don't align
+R5a   | No Hiring Ticket              | Actively recruiting but no AskFile ticket
+R5b   | FA Bench/Rolloff + Ticket     | Bench/Rolloff FA but has AskFile ticket
+R5c   | SubK/FG Mismatch              | Contractor track but FG blank/N
+R6    | Backfill N + Ranking 999      | Backfilled=N with Priority Ranking 999
+R7    | Confirmed > 2 Working Days    | Confirmed disposition but date > 2 days ago
+
+
+GITHUB REPO
+-----------
+Repo    : https://github.com/dineshkgupta1007/watsonx-challenge-2026
+Branch  : main
+
+Key files:
+  Generate_Compliance_Report.ps1              — main report generator + email sender
+  IND_July2026_Compliance_by_FS.html          — latest compliance report (by FS)
+  IND_July2026_Compliance_Progress_Analysis.html — 6-version comparative analysis
+  How to re-run next day.txt                  — quick re-run instructions
+  How to re-run compliance progress analysis.txt — THIS FILE
+
+
+CC LIST FOR EMAILS
+------------------
+smouttou@in.ibm.com
+rakmukhe@in.ibm.com
+jayghosh@in.ibm.com
+manjhans@in.ibm.com
+Dineshkgupta@in.ibm.com
+
+
+JULY 2026 — VERSION HISTORY
+-----------------------------
+Version | Date    | Commit   | Total Flags | Notes
+--------|---------|----------|-------------|-------------------------------
+v1      | 13 Jul  | 0118393  | 224         | Initial report
+v2      | 14 Jul  | c7022af  | 256         | New demands added (worst day)
+v3      | 16 Jul  | b3c8417  | 203         | Post-email improvement
+v4      | 17 Jul  | 3e4b5e6  | 239         | Data refresh spike
+v5      | 20 Jul  | feff8e8  | 178         | Weekend catch-up
+v6      | 21 Jul  | 266e2db  | 143         | Latest — 44% reduction from peak
+============================================================

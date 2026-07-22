@@ -130,6 +130,15 @@ foreach ($row in $rows) {
     $trackL = $track.ToLower(); $faL = $fa.ToLower(); $fgL = $fg.ToLower()
     $flags = [System.Collections.Generic.List[string]]::new()
 
+    # Challenged Seat exemption: FA is a Challenged Seat variant AND Track = Actively recruiting → fully compliant, skip all flags
+    $challengedFAs = @(
+        "challenged seat - fulfillment delay offered",
+        "challenged seat - fulfillment delay accepted",
+        "challenged seat - resolution in process",
+        "challenged seat - arbitration required"
+    )
+    if (($challengedFAs -contains $faL) -and ($trackL -eq "actively recruiting")) { continue }
+
     $estParsed = parseDate $estDt
     if ([string]::IsNullOrWhiteSpace($estDt) -or ($null -ne $estParsed -and $estParsed -le $refDate)) {
         $flags.Add("be:EST Non Compliant")

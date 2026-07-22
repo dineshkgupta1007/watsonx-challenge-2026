@@ -351,17 +351,34 @@ $outPath = Join-Path $root "IND_July2026_Compliance_by_FS.html"
 Write-Host "Done. Size: $([math]::Round($out.Length/1KB,1)) KB | Records: $total"
 
 # =============================================================================
-# SEND COMPLIANCE EMAILS — one per FS Intranet ID, CC smouttou@in.ibm.com + additional recipients
+# STEP 3 — PUSH HTML REPORT TO GITHUB
 # =============================================================================
-$answer = Read-Host "`nSend compliance emails to $($groups.Count - ($groups.Name -eq '(blank)').Count) FS staff? Type YES to confirm"
+Write-Host "`nPushing HTML report to GitHub..."
+Push-Location $root
+git add "IND_July2026_Compliance_by_FS.html" "Generate_Compliance_Report.ps1" "Ind July month 30 days demands.xlsx"
+$commitMsg = "Compliance report refresh - $(Get-Date -Format 'dd MMM yyyy HH:mm')"
+$gitOut = git commit -m $commitMsg 2>&1
+if ($LASTEXITCODE -eq 0 -or $gitOut -match "nothing to commit") {
+    git push origin main 2>&1 | Write-Host
+    Write-Host "GitHub push complete."
+} else {
+    Write-Host "Git commit output: $gitOut"
+    git push origin main 2>&1 | Write-Host
+}
+Pop-Location
+
+# =============================================================================
+# STEP 4 — SEND COMPLIANCE EMAILS — one per FS Intranet ID
+# =============================================================================
+$fsList     = $groups | Select-Object -ExpandProperty Name | Where-Object { $_ -ne "(blank)" }
+$fsCount    = $fsList.Count
+$answer     = Read-Host "`nSend compliance emails to $fsCount FS staff? Type YES to confirm"
 $sendEmails = ($answer.Trim().ToUpper() -eq "YES")
 
 if ($sendEmails) {
 
 $reportLink = "https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/main/IND_July2026_Compliance_by_FS.html"
 $cc         = "smouttou@in.ibm.com;rakmukhe@in.ibm.com;jayghosh@in.ibm.com;manjhans@in.ibm.com;Dineshkgupta@in.ibm.com"
-
-$fsList = $groups | Select-Object -ExpandProperty Name | Where-Object { $_ -ne "(blank)" }
 
 $outlook = New-Object -ComObject Outlook.Application
 foreach ($fs in $fsList) {
@@ -388,7 +405,7 @@ IBM Industrial Sector - Staffing
     Write-Host "Sent to: $fs (CC: $cc)"
     Start-Sleep -Milliseconds 500
 }
-Write-Host "All $($fsList.Count) emails sent."
+Write-Host "All $fsCount emails sent."
 
 } else {
     Write-Host "Email sending skipped."

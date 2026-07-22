@@ -4,21 +4,47 @@
 # USAGE:  Double-click this file  OR  run in PowerShell:
 #         powershell -ExecutionPolicy Bypass -File "Generate_Compliance_Report.ps1"
 #
-# INPUT:  Reads the pre-dumped JSON from the xlsx dump cache (auto-created by Bob)
-#         JSON path: .bob\tmp\xlsx-dumps\Ind July month 30 days demands-...\30days.json
+# INPUT:  Reads DIRECTLY from the xlsx file (always refreshed — no stale cache)
+#         xlsx path: <script folder>\Ind July month 30 days demands.xlsx
 #
 # OUTPUT: IND_July2026_Compliance_by_FS.html  (same folder as this script)
-#
-# STEPS TO RE-RUN TOMORROW:
-#   1. Place the new/updated xlsx file in this folder (same name)
-#   2. Open Bob chat and type: "regenerate compliance report"
-#      Bob will re-dump the xlsx and run this script automatically.
-#   OR manually:
-#   3. Run this script directly (see USAGE above) if the JSON dump is still current.
 # =============================================================================
 
-$root = $PSScriptRoot
-$raw = Get-Content "$root\.bob\tmp\xlsx-dumps\Ind July month 30 days demands-3c40b8b4defc9fcd\30days.json" -Raw | ConvertFrom-Json
+$root     = $PSScriptRoot
+$xlsxPath = Join-Path $root "Ind July month 30 days demands.xlsx"
+$jsonPath = Join-Path $root ".bob\tmp\xlsx-dumps\Ind July month 30 days demands-3c40b8b4defc9fcd\30days.json"
+
+if (-not (Test-Path $xlsxPath)) {
+    Write-Error "xlsx not found: $xlsxPath"
+    exit 1
+}
+
+# --- Always refresh JSON cache from xlsx via Python + openpyxl ---
+Write-Host "Refreshing JSON cache from xlsx..."
+$pyScript = @'
+import sys, json, openpyxl
+wb = openpyxl.load_workbook(sys.argv[1], data_only=True)
+ws = wb.active
+rows_iter = list(ws.iter_rows(values_only=True))
+if not rows_iter:
+    print(json.dumps({"headers": [], "rows": []}))
+    sys.exit(0)
+headers = [str(c) if c is not None else "" for c in rows_iter[0]]
+data_rows = []
+for r in rows_iter[1:]:
+    data_rows.append([str(c) if c is not None else "" for c in r])
+print(json.dumps({"headers": headers, "rows": data_rows}, ensure_ascii=False))
+'@
+$pyFile = Join-Path $env:TEMP "xlsx_refresh_$PID.py"
+$pyScript | Set-Content $pyFile -Encoding UTF8
+$jsonOut = python $pyFile $xlsxPath 2>&1
+Remove-Item $pyFile -Force -ErrorAction SilentlyContinue
+if ($LASTEXITCODE -ne 0) { Write-Error "Python xlsx refresh failed: $jsonOut"; exit 1 }
+$null = New-Item -ItemType Directory -Force -Path (Split-Path $jsonPath)
+[System.IO.File]::WriteAllText($jsonPath, $jsonOut, [System.Text.Encoding]::UTF8)
+Write-Host "Cache refreshed OK."
+
+$raw     = $jsonOut | ConvertFrom-Json
 $headers = $raw.headers
 $rows    = $raw.rows
 
@@ -238,8 +264,9 @@ footer{margin-top:28px;padding-top:10px;border-top:1px solid #e5e7eb;text-align:
 '@
 $null = $sb.AppendLine($css)
 $null = $sb.AppendLine('</style></head><body><div class="wrap">')
+$reportDate = (Get-Date).ToString("dd MMM yyyy")
 $null = $sb.AppendLine('<h1>IBM Industrial - July 2026 Demand Compliance by FS Intranet ID</h1>')
-$null = $sb.AppendLine("<p class='sub'>Source: Ind July month 30 days demands.xlsx &nbsp;|&nbsp; Ref date: 10 Jul 2026 &nbsp;|&nbsp; $total flagged records &nbsp;|&nbsp; Open Seat IDs link to IBM PMP &nbsp;|&nbsp; Additional Comments truncated to 50 chars (hover for full text)</p>")
+$null = $sb.AppendLine("<p class='sub'>Generated: $reportDate &nbsp;|&nbsp; Source: Ind July month 30 days demands.xlsx &nbsp;|&nbsp; Ref date: 10 Jul 2026 &nbsp;|&nbsp; $total flagged records &nbsp;|&nbsp; Open Seat IDs link to IBM PMP &nbsp;|&nbsp; Additional Comments truncated to 50 chars (hover for full text)</p>")
 
 $null = $sb.AppendLine("<div class='kpi-row'>
   <div class='kpi c1'><div class='num'>$cR1</div><div class='lbl'>EST Non Compliant</div></div>
@@ -325,9 +352,9 @@ Write-Host "Done. Size: $([math]::Round($out.Length/1KB,1)) KB | Records: $total
 
 # =============================================================================
 # SEND COMPLIANCE EMAILS — one per FS Intranet ID, CC smouttou@in.ibm.com + additional recipients
-# Set $sendEmails = $true only when you explicitly want to dispatch emails.
 # =============================================================================
-$sendEmails = $false   # <-- change to $true when ready to send
+$answer = Read-Host "`nSend compliance emails to $($groups.Count - ($groups.Name -eq '(blank)').Count) FS staff? Type YES to confirm"
+$sendEmails = ($answer.Trim().ToUpper() -eq "YES")
 
 if ($sendEmails) {
 
@@ -341,7 +368,7 @@ foreach ($fs in $fsList) {
     $body = @"
 Hi,
 
-Your open seats have been flagged for non-compliance items in the IBM Industrial Sector July 2026 Demand Compliance Report.
+Your open seats have been flagged for non-compliance items in the IBM Industrial Sector 30 days Demand Compliance Report.
 
 Please review your section in the report at the link below and action all flagged compliance items at the earliest - latest by end of day tomorrow.
 
@@ -364,6 +391,6 @@ IBM Industrial Sector - Staffing
 Write-Host "All $($fsList.Count) emails sent."
 
 } else {
-    Write-Host "Email sending skipped. Set `$sendEmails = `$true to dispatch."
+    Write-Host "Email sending skipped."
 }
 

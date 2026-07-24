@@ -1,0 +1,319 @@
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>IBM Industrial WFM - Compliance Launcher</title>
+<HTA:APPLICATION
+  ID="WFMLauncher"
+  APPLICATIONNAME="IBM Industrial WFM Launcher"
+  CAPTION="yes"
+  SHOWINTASKBAR="yes"
+  SINGLEINSTANCE="yes"
+  SCROLL="auto"
+  WINDOWSTATE="normal"
+  INNERWIDTH="860"
+  INNERHEIGHT="720"
+/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,sans-serif;font-size:13px;background:#f0f2f5;color:#1f2328}
+.hdr{background:#1f2328;color:#fff;padding:14px 20px}
+.hdr-title{font-size:16px;font-weight:700}
+.hdr-sub{font-size:11px;color:#9ca3af;margin-top:3px}
+.hdr-pill{display:inline-block;padding:2px 10px;border-radius:9px;font-size:11px;font-weight:700;margin-left:12px;vertical-align:middle}
+.pill-idle{background:#e5e7eb;color:#57606a}
+.pill-run{background:#dbeafe;color:#1d4ed8}
+.pill-ok{background:#dcfce7;color:#166534}
+.pill-err{background:#fee2e2;color:#991b1b}
+.body{padding:16px 20px;display:flex;flex-direction:column;gap:14px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:14px 16px}
+.card-title{font-size:11px;font-weight:700;color:#57606a;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #e5e7eb}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field label{display:block;font-size:11px;font-weight:600;color:#57606a;margin-bottom:3px}
+.field input{width:100%;padding:5px 8px;border:1px solid #d1d5db;border-radius:5px;font-size:12px;font-family:inherit}
+.chkrow{display:flex;align-items:center;gap:7px;font-size:12px;margin-top:8px}
+.chkrow input{width:14px;height:14px}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap}
+.btn{padding:8px 16px;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-dark{background:#1f2328;color:#fff}
+.btn-green{background:#166534;color:#fff}
+.btn-blue{background:#3b82d4;color:#fff}
+.btn-amber{background:#b45309;color:#fff}
+.btn-grey{background:#e5e7eb;color:#374151}
+.tip{background:#f0f6ff;border-left:3px solid #3b82d4;padding:7px 10px;font-size:11px;color:#374151;border-radius:0 5px 5px 0;margin-top:10px}
+#log{background:#1f2328;color:#c9d1d9;font-family:"Consolas","Courier New",monospace;font-size:11px;padding:10px 12px;border-radius:6px;height:220px;overflow-y:auto;white-space:pre-wrap;line-height:1.6}
+.ok{color:#3fb950}.warn{color:#d29922}.err{color:#f85149}.info{color:#58a6ff}.dim{color:#8b9099}
+.footer{text-align:center;font-size:10px;color:#8b9099;padding:8px;border-top:1px solid #e5e7eb;background:#fff}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <span class="hdr-title">IBM Industrial WFM - Compliance Launcher</span>
+  <span id="pill" class="hdr-pill pill-idle">Idle</span>
+  <div class="hdr-sub">Demand Compliance Report Generator | July 2026</div>
+</div>
+
+<div class="body">
+
+  <div class="card">
+    <div class="card-title">CONFIG - Report Settings</div>
+    <div class="grid2">
+      <div class="field">
+        <label>Source xlsx filename</label>
+        <input type="text" id="xlsxName" value="Industrial 30 days open demands.xlsx" />
+      </div>
+      <div class="field">
+        <label>Output HTML filename</label>
+        <input type="text" id="outName" value="IND_July2026_Compliance_by_FS.html" />
+      </div>
+    </div>
+    <div class="chkrow">
+      <input type="checkbox" id="chkEmail" />
+      <label for="chkEmail">Send compliance emails to all FS staff after generation</label>
+    </div>
+    <div class="chkrow">
+      <input type="checkbox" id="chkGit" checked="checked" />
+      <label for="chkGit">Push updated report to GitHub after generation</label>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">ACTIONS</div>
+    <div class="btn-row">
+      <button class="btn btn-dark"  id="btnRun" >Run: Generate Report</button>
+      <button class="btn btn-green" id="btnMail">Run + Send Emails</button>
+      <button class="btn btn-blue"  id="btnView">Open Last Report</button>
+      <button class="btn btn-amber" id="btnProg">Open Progress Analysis</button>
+      <button class="btn btn-grey"  id="btnClr" >Clear Log</button>
+    </div>
+    <div class="tip">
+      <strong>Tip:</strong> Update the Source xlsx filename field to match your file before clicking Run.
+      For a new month also update Reference Date and Comment Cut-off.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">LOG - Console Output</div>
+    <div id="log"><span class="dim">Ready. Click an action above to start.</span></div>
+  </div>
+
+</div>
+
+<div class="footer">IBM Industrial Sector - WFM Compliance Tool | Made with IBM Bob</div>
+
+<script type="text/javascript">
+
+// ---- Helpers ----
+
+function getDir() {
+    var h = window.location.href;
+    // strip file:///
+    h = h.replace(/^file:\/\/\//i, "");
+    // decode %xx sequences
+    h = decodeURIComponent(h);
+    // convert forward slashes to backslashes
+    h = h.replace(/\//g, "\\");
+    // strip filename, keep directory
+    var idx = h.lastIndexOf("\\");
+    return h.substring(0, idx);
+}
+
+function addLog(msg, cls) {
+    var el = document.getElementById("log");
+    var d  = new Date();
+    var ts = "[" + d.toLocaleTimeString() + "] ";
+    var span = document.createElement("span");
+    span.className = cls;
+    span.appendChild(document.createTextNode(ts + msg));
+    el.appendChild(span);
+    el.appendChild(document.createTextNode("\n"));
+    el.scrollTop = el.scrollHeight;
+}
+
+function setPill(txt, cls) {
+    var p = document.getElementById("pill");
+    p.innerHTML  = txt;
+    p.className  = "hdr-pill " + cls;
+}
+
+function setBtns(disabled) {
+    document.getElementById("btnRun").disabled  = disabled;
+    document.getElementById("btnMail").disabled = disabled;
+}
+
+// ---- Replace the first line in src that starts with prefix ----
+// prefix may end with " " or "=" to be precise (e.g. "$refDate =" won't match "$refDateStr")
+function replaceLine(src, prefix, newLine) {
+    var lines = src.split("\n");
+    for (var i = 0; i < lines.length; i++) {
+        var t = lines[i].replace(/^\s+/, "");   // ltrim
+        if (t.indexOf(prefix) === 0) {
+            // if prefix ends with = or space it is already precise enough
+            // otherwise require that the next char is = space or tab
+            var lastPrefixChar = prefix.charAt(prefix.length - 1);
+            if (lastPrefixChar === "=" || lastPrefixChar === " ") {
+                lines[i] = newLine;
+                return lines.join("\n");
+            }
+            var nc = t.charAt(prefix.length);
+            if (nc === " " || nc === "=" || nc === "\t") {
+                lines[i] = newLine;
+                return lines.join("\n");
+            }
+        }
+    }
+    return src;
+}
+
+// ---- Build the patched PS1 in a temp file and return its path ----
+function buildScript(doEmail, doGit) {
+    var dir      = getDir();
+    var xlsxVal  = document.getElementById("xlsxName").value.replace(/^\s+|\s+$/g, "");
+    var outVal   = document.getElementById("outName").value.replace(/^\s+|\s+$/g, "");
+
+    var emailLine = doEmail ? "$launchSendEmail = $true" : "$launchSendEmail = $false";
+    var gitLine   = doGit   ? "$launchDoGit = $true"    : "$launchDoGit = $false";
+
+    // Read original script
+    var fso     = new ActiveXObject("Scripting.FileSystemObject");
+    var srcPath = dir + "\\Generate_Compliance_Report.ps1";
+    if (!fso.FileExists(srcPath)) {
+        addLog("ERROR: Cannot find Generate_Compliance_Report.ps1 in: " + dir, "err");
+        return "";
+    }
+    var f   = fso.OpenTextFile(srcPath, 1, false);
+    var src = f.ReadAll();
+    f.Close();
+
+    // Patch variable lines in-place
+    src = replaceLine(src, "$root",       "$root     = '" + dir + "'");
+    src = replaceLine(src, "$xlsxPath",   "$xlsxPath = Join-Path $root '" + xlsxVal + "'");
+    src = replaceLine(src, "$jsonPath",   "$jsonPath = Join-Path $root '.bob\\tmp\\xlsx-dumps\\launcher-cache\\30days.json'");
+    src = replaceLine(src, "$outPath",    "$outPath  = Join-Path $root '" + outVal + "'");
+
+    // Inject email + git flags right after param() line
+    var inject = "\r\n# LAUNCHER OVERRIDES\r\n" + emailLine + "\r\n" + gitLine + "\r\n";
+    src = src.replace("param([switch]$SendEmails)", "param([switch]$SendEmails)" + inject);
+
+    // Replace interactive email prompt
+    src = src.replace(
+        "if (-not $sendEmails -and [Environment]::UserInteractive) {\r\n    $answer     = Read-Host \"`nSend compliance emails to $fsCount FS staff? Type YES to confirm\"\r\n    $sendEmails = ($answer.Trim().ToUpper() -eq \"YES\")\r\n}",
+        "$sendEmails = $launchSendEmail"
+    );
+    // Also handle LF-only line endings just in case
+    src = src.replace(
+        "if (-not $sendEmails -and [Environment]::UserInteractive) {\n    $answer     = Read-Host \"`nSend compliance emails to $fsCount FS staff? Type YES to confirm\"\n    $sendEmails = ($answer.Trim().ToUpper() -eq \"YES\")\n}",
+        "$sendEmails = $launchSendEmail"
+    );
+
+    // Wrap git push in conditional
+    src = src.replace(
+        "Write-Host \"`nPushing HTML report to GitHub...\"",
+        "if ($launchDoGit) { Write-Host 'Pushing HTML report to GitHub...'"
+    );
+    src = src.replace(
+        "Pop-Location",
+        "Pop-Location\r\n} else { Write-Host 'GitHub push skipped.' }"
+    );
+
+    // Write to temp file
+    var d2      = new Date();
+    var suffix  = d2.getFullYear().toString() + (d2.getMonth()+1).toString() + d2.getDate().toString() + d2.getHours().toString() + d2.getMinutes().toString() + d2.getSeconds().toString();
+    var tmpPath = fso.GetSpecialFolder(2) + "\\wfm_run_" + suffix + ".ps1";
+    var tf      = fso.CreateTextFile(tmpPath, true, true);
+    tf.Write(src);
+    tf.Close();
+    return tmpPath;
+}
+
+// ---- Core runner ----
+function runCore(doEmail) {
+    setBtns(true);
+    setPill("Running...", "pill-run");
+    addLog("Starting report generation...", "info");
+    addLog("Folder : " + getDir(), "dim");
+    addLog("xlsx   : " + document.getElementById("xlsxName").value, "dim");
+    addLog("Output : " + document.getElementById("outName").value, "dim");
+
+    var doGit = document.getElementById("chkGit").checked;
+    var tmp   = buildScript(doEmail, doGit);
+    if (tmp === "") {
+        setPill("Error", "pill-err");
+        setBtns(false);
+        return;
+    }
+
+    addLog("Temp script: " + tmp, "dim");
+    addLog("Launching PowerShell...", "info");
+
+    var sh  = new ActiveXObject("WScript.Shell");
+    var cmd = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"" + tmp + "\"";
+    var ret = sh.Run(cmd, 1, true);   // wait = true
+
+    var fso = new ActiveXObject("Scripting.FileSystemObject");
+    if (fso.FileExists(tmp)) { fso.DeleteFile(tmp); }
+
+    if (ret === 0) {
+        addLog("Completed successfully (exit 0).", "ok");
+        setPill("Done - OK", "pill-ok");
+    } else {
+        addLog("Finished with exit code " + ret + ". See the PowerShell window for details.", "warn");
+        setPill("Exit code " + ret, "pill-err");
+    }
+    setBtns(false);
+}
+
+// ---- Open an HTML file forcing a cache-busted fresh load in the browser ----
+function openFresh(filePath) {
+    // Build a file:// URL with a timestamp query string so the browser
+    // cannot serve the old cached version.
+    var ts  = new Date().getTime();
+    var url = "file:///" + filePath.replace(/\\/g, "/") + "?t=" + ts;
+    var sh  = new ActiveXObject("WScript.Shell");
+    // rundll32 url.dll,FileProtocolHandler forces IE/Edge/default browser
+    // to open the URL fresh, bypassing any cached copy.
+    sh.Run("rundll32.exe url.dll,FileProtocolHandler \"" + url + "\"", 1, false);
+}
+
+// ---- Button handlers ----
+document.getElementById("btnRun").onclick = function() {
+    runCore(document.getElementById("chkEmail").checked);
+};
+
+document.getElementById("btnMail").onclick = function() {
+    runCore(true);
+};
+
+document.getElementById("btnView").onclick = function() {
+    var dir     = getDir();
+    var outFile = document.getElementById("outName").value.replace(/^\s+|\s+$/g, "");
+    var path    = dir + "\\" + outFile;
+    var fso     = new ActiveXObject("Scripting.FileSystemObject");
+    if (fso.FileExists(path)) {
+        openFresh(path);
+        addLog("Opened (fresh): " + path, "ok");
+    } else {
+        addLog("File not found: " + path + " - generate the report first.", "err");
+    }
+};
+
+document.getElementById("btnProg").onclick = function() {
+    var dir  = getDir();
+    var path = dir + "\\IND_July2026_Compliance_Progress_Analysis.html";
+    var fso  = new ActiveXObject("Scripting.FileSystemObject");
+    if (fso.FileExists(path)) {
+        openFresh(path);
+        addLog("Opened (fresh): " + path, "ok");
+    } else {
+        addLog("File not found: " + path, "err");
+    }
+};
+
+document.getElementById("btnClr").onclick = function() {
+    document.getElementById("log").innerHTML = "";
+    addLog("Log cleared.", "dim");
+};
+
+</script>
+</body>
+</html>

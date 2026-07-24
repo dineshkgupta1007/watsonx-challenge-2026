@@ -399,7 +399,7 @@ $sendEmails = $SendEmails.IsPresent
 
 if (-not $sendEmails -and [Environment]::UserInteractive) {
     $answer     = Read-Host "`nSend compliance emails to $fsCount FS staff? Type YES to confirm"
-    $sendEmails = ($answer.Trim().ToUpper() -eq "YES")
+    $sendEmails = (-not [string]::IsNullOrWhiteSpace($answer) -and $answer.Trim().ToUpper() -eq "YES")
 }
 
 if ($sendEmails) {

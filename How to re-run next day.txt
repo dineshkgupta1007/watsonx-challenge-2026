@@ -1,4 +1,16 @@
 How to re-run tomorrow
+==========================================
+EASIEST — Double-click WFM_Launcher.hta  (or Run_Launcher.bat)
+==========================================
+Opens a graphical launcher where you can:
+  • Change Reference Date / Comment Cut-off / filenames
+  • Toggle email sending and GitHub push on/off
+  • Click "Generate Report" — no PowerShell commands needed
+  • Open the last report or progress analysis directly
+
+==========================================
+COMMAND-LINE OPTIONS
+==========================================
 Option A — With a new xlsx file (e.g. August data)
 Replace Ind July month 30 days demands.xlsx in the workspace folder with the new file (keep the same name)
 Open Bob chat and type:

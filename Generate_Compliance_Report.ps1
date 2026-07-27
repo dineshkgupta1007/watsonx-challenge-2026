@@ -6,14 +6,15 @@ param([switch]$SendEmails)
 #         powershell -ExecutionPolicy Bypass -File "Generate_Compliance_Report.ps1"
 #
 # INPUT:  Reads DIRECTLY from the xlsx file (always refreshed — no stale cache)
-#         xlsx path: <script folder>\Ind July month 30 days demands.xlsx
+#         xlsx path: <script folder>\Industrial 30 days open demands.xlsx
 #
 # OUTPUT: IND_July2026_Compliance_by_FS.html  (same folder as this script)
 # =============================================================================
 
 $root     = $PSScriptRoot
 $xlsxPath = Join-Path $root "Industrial 30 days open demands.xlsx"
-$jsonPath = Join-Path $root ".bob\tmp\xlsx-dumps\Ind July month 30 days demands-3c40b8b4defc9fcd\30days.json"
+$jsonPath = Join-Path $root ".bob\tmp\xlsx-dumps\industrial-30days-cache\30days.json"
+$outPath  = Join-Path $root "IND_July2026_Compliance_by_FS.html"
 
 if (-not (Test-Path $xlsxPath)) {
     Write-Error "xlsx not found: $xlsxPath"
@@ -116,7 +117,6 @@ foreach ($row in $rows) {
     $industry   = cell $row "Industry"
     $title      = cell $row "Open Seat Title"
     $estDt      = cell $row "Est Strt Dt"
-    $startDt    = cell $row "Start Date"
     $comments   = cell $row "Additional Comments"
     $track      = cell $row "Candidate Track Type"
     $fa         = cell $row "Fulfillment Action"
@@ -142,13 +142,13 @@ foreach ($row in $rows) {
     )
     if (($challengedFAs -contains $faL) -and ($trackL -eq "actively recruiting")) { continue }
 
-    $estParsed   = parseDate $estDt
-    $startParsed = parseDate $startDt
+    $estParsed = parseDate $estDt
+    $today     = [datetime]::Today
     if ([string]::IsNullOrWhiteSpace($estDt) -or $null -eq $estParsed) {
         $flags.Add("be:EST Non Compliant")
-    } elseif ($null -ne $startParsed -and $estParsed -lt $startParsed) {
+    } elseif ($estParsed -lt $today) {
         $flags.Add("be:EST Non Compliant")
-    } elseif ($null -ne $startParsed -and $estParsed -gt $startParsed.AddDays(90)) {
+    } elseif ($estParsed -gt $today.AddDays(90)) {
         $flags.Add("be:EST Non Compliant")
     }
 
@@ -302,7 +302,7 @@ $null = $sb.AppendLine("<div class='kpi-row'>
 </div>")
 
 $null = $sb.AppendLine("<div class='rules'><h3>Rule Definitions</h3><table><thead><tr><th>Rule</th><th>Condition</th><th>Flag</th></tr></thead><tbody>
-<tr><td>R1</td><td>Est Strt Dt blank OR Est Strt Dt &lt; Start Date OR Est Strt Dt &gt; 90 days after Start Date</td><td><span class='badge be'>EST Non Compliant</span></td></tr>
+<tr><td>R1</td><td>Est Strt Dt blank OR Est Strt Dt &lt; today (system date) OR Est Strt Dt &gt; 90 days from today (system date)</td><td><span class='badge be'>EST Non Compliant</span></td></tr>
 <tr><td>R2</td><td>Additional Comments blank OR last modified date in comments is older than 15 days from real-time system date</td><td><span class='badge bc'>Comment Non Compliant</span></td></tr>
 <tr><td>R3</td><td>Track contains &quot;contractor&quot; AND Fieldglass flag blank/N</td><td><span class='badge bf'>Track Type/Fieldglass mismatch</span></td></tr>
 <tr><td>R4a</td><td>Track = Actively recruiting / New hire identified &rarr; FA must be External hire</td><td><span class='badge ba'>Track Type/FA mismatch</span></td></tr>
@@ -367,7 +367,6 @@ $null = $sb.AppendLine("<footer>Made with IBM Bob</footer>")
 $null = $sb.AppendLine("</div></body></html>")
 
 $out = $sb.ToString()
-$outPath = Join-Path $root "IND_July2026_Compliance_by_FS.html"
 [System.IO.File]::WriteAllText($outPath, $out, [System.Text.Encoding]::UTF8)
 Write-Host "Done. Size: $([math]::Round($out.Length/1KB,1)) KB | Records: $total"
 
@@ -376,7 +375,7 @@ Write-Host "Done. Size: $([math]::Round($out.Length/1KB,1)) KB | Records: $total
 # =============================================================================
 Write-Host "`nPushing HTML report to GitHub..."
 Push-Location $root
-git add "IND_July2026_Compliance_by_FS.html" "Generate_Compliance_Report.ps1" "Ind July month 30 days demands.xlsx"
+git add "IND_July2026_Compliance_by_FS.html" "Generate_Compliance_Report.ps1" "Industrial 30 days open demands.xlsx"
 $commitMsg = "Compliance report refresh - $(Get-Date -Format 'dd MMM yyyy HH:mm')"
 $gitOut = git commit -m $commitMsg 2>&1
 if ($LASTEXITCODE -eq 0 -or $gitOut -match "nothing to commit") {

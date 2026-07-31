@@ -6,14 +6,14 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;font-size:14px;line-height:1.6;background:#fff;color:#1f2328}
-.wrap{max-width:760px;margin:0 auto;padding:28px 16px}
+.wrap{max-width:800px;margin:0 auto;padding:28px 16px}
 h1{font-size:18px;font-weight:700;margin-bottom:4px}
 .sub{color:#57606a;font-size:12px;margin-bottom:24px}
 h2{font-size:14px;font-weight:700;margin:28px 0 10px;border-bottom:1px solid #e5e7eb;padding-bottom:5px}
-.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
 .kpi{background:#f7f8fa;border:1px solid #e5e7eb;border-radius:6px;padding:12px 14px}
 .kpi .num{font-size:26px;font-weight:700}.kpi .lbl{font-size:11px;color:#57606a;margin-top:2px}
-.green .num{color:#166534}.red .num{color:#b91c1c}.blue .num{color:#1d4ed8}
+.green .num{color:#166534}.red .num{color:#b91c1c}.blue .num{color:#1d4ed8}.amber .num{color:#b45309}
 table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
 th{background:#f7f8fa;border:1px solid #e5e7eb;padding:7px 8px;text-align:center;font-weight:600;white-space:nowrap}
 th.left{text-align:left}
@@ -21,14 +21,17 @@ td{border:1px solid #e5e7eb;padding:6px 8px;text-align:center;vertical-align:mid
 td.label{text-align:left;font-weight:600;font-size:11px;background:#f7f8fa;white-space:nowrap}
 tr.total-row td{font-weight:700;background:#1f2328;color:#fff}
 tr.total-row td.label{background:#1f2328;color:#fff}
+tr.section-divider td{background:#e5e7eb;font-size:11px;font-weight:600;color:#57606a;text-align:left;padding:4px 8px}
 .bar-section{margin-bottom:24px}
-.bar-row{display:flex;align-items:center;margin-bottom:7px;gap:8px}
-.bar-label{width:52px;font-size:11px;font-weight:600;color:#57606a;flex-shrink:0;text-align:right}
-.bar-wrap{flex:1;background:#f0f0f0;border-radius:3px;height:20px;position:relative}
-.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:11px;font-weight:700;color:#fff;min-width:28px}
-.bar-v1{background:#e57373}.bar-v2{background:#b91c1c}.bar-v3{background:#f59e0b}
-.bar-v4{background:#f59e0b}.bar-v5{background:#3b82d4}.bar-v6{background:#166534}
-.bar-num{font-size:11px;color:#57606a;flex-shrink:0;width:28px;text-align:right}
+.bar-row{display:flex;align-items:center;margin-bottom:6px;gap:8px}
+.bar-label{width:66px;font-size:11px;font-weight:600;color:#57606a;flex-shrink:0;text-align:right}
+.bar-wrap{flex:1;background:#f0f0f0;border-radius:3px;height:18px;position:relative}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:11px;font-weight:700;color:#fff;min-width:24px}
+.bc1{background:#e57373}.bc2{background:#b91c1c}.bc3{background:#f59e0b}
+.bc4{background:#f59e0b}.bc5{background:#6366f1}.bc6{background:#22c55e}
+.bc7{background:#3b82d4}.bc8{background:#0ea5e9}.bc9{background:#10b981}
+.bcA{background:#14b8a6}.bcB{background:#16a34a}.bcC{background:#166534}
+.bar-num{font-size:11px;color:#57606a;flex-shrink:0;width:34px;text-align:right}
 .rule-tbl td{font-size:11px}
 .rule-tbl td.label{font-size:11px;max-width:180px;white-space:normal}
 .delta-good{color:#166534;font-weight:700}.delta-bad{color:#b91c1c;font-weight:700}.delta-neu{color:#57606a}
@@ -46,7 +49,7 @@ footer{margin-top:32px;padding-top:10px;border-top:1px solid #e5e7eb;text-align:
 <div class="wrap">
 
 <h1>IBM Industrial Sector — July 2026 Demand Compliance</h1>
-<p class="sub">Comparative Progress Analysis &nbsp;|&nbsp; 6 report versions &nbsp;|&nbsp; 13 Jul – 21 Jul 2026 &nbsp;|&nbsp; 9 compliance rules tracked</p>
+<p class="sub">Comprehensive Progress Analysis &nbsp;|&nbsp; 14 report snapshots &nbsp;|&nbsp; 13 Jul – 31 Jul 2026 &nbsp;|&nbsp; 9 compliance rules tracked &nbsp;|&nbsp; Generated: 31 Jul 2026</p>
 
 <h2>Report Versions — Click to Open</h2>
 <div class="ver-links">
@@ -55,147 +58,130 @@ footer{margin-top:32px;padding-top:10px;border-top:1px solid #e5e7eb;text-align:
   <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/b3c8417d34a6ff581d7fc0f45c5deb61af81e8b5/IND_July2026_Compliance_by_FS.html" target="_blank">v3 · 16 Jul · 203 flags</a>
   <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/3e4b5e6dcb6b7b215e5c738d8b0497bc9d84812a/IND_July2026_Compliance_by_FS.html" target="_blank">v4 · 17 Jul · 239 flags</a>
   <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/feff8e8c95227e9c806d9358e7f79c218fac4d3c/IND_July2026_Compliance_by_FS.html" target="_blank">v5 · 20 Jul · 178 flags</a>
-  <a class="ver-chip latest" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/266e2dba59da964ffa44a63475c7c083a43755b9/IND_July2026_Compliance_by_FS.html" target="_blank">v6 · 21 Jul · 143 flags ✓ Latest</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/266e2dba59da964ffa44a63475c7c083a43755b9/IND_July2026_Compliance_by_FS.html" target="_blank">v6 · 21 Jul · 143 flags</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/fa0e4de/IND_July2026_Compliance_by_FS.html" target="_blank">v7 · 22 Jul · 167 flags</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/8a6eacf/IND_July2026_Compliance_by_FS.html" target="_blank">v8 · 23 Jul · 156 flags</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/8cd1dd4/IND_July2026_Compliance_by_FS.html" target="_blank">v9 · 24 Jul · 114 flags</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/be2f454/IND_July2026_Compliance_by_FS.html" target="_blank">v10 · 27 Jul · 204 flags</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/41b070c/IND_July2026_Compliance_by_FS.html" target="_blank">v11 · 28 Jul · 200 flags</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/30ad734/IND_July2026_Compliance_by_FS.html" target="_blank">v12 · 29 Jul · 193 flags</a>
+  <a class="ver-chip" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/ae321ef/IND_July2026_Compliance_by_FS.html" target="_blank">v13 · 30 Jul · 213 flags</a>
+  <a class="ver-chip latest" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/dineshkgupta1007/watsonx-challenge-2026/1744c9b/IND_July2026_Compliance_by_FS.html" target="_blank">v14 · 31 Jul · 189 flags ✓ Latest</a>
 </div>
 
 <h2>Overall Progress Summary</h2>
 <div class="kpi-row">
-  <div class="kpi green"><div class="num">44%</div><div class="lbl">Total reduction in flagged records (256 → 143)</div></div>
-  <div class="kpi blue"><div class="num">113</div><div class="lbl">Compliance issues resolved over 8 days</div></div>
-  <div class="kpi red"><div class="num">143</div><div class="lbl">Remaining flags to clear (latest v6)</div></div>
+  <div class="kpi green"><div class="num">26%</div><div class="lbl">Net reduction from peak (256 → 189)</div></div>
+  <div class="kpi blue"><div class="num">67</div><div class="lbl">Issues resolved peak-to-latest</div></div>
+  <div class="kpi amber"><div class="num">114</div><div class="lbl">Best single day: 24 Jul (lowest flags)</div></div>
+  <div class="kpi red"><div class="num">189</div><div class="lbl">Remaining flags as of 31 Jul 2026</div></div>
 </div>
 
-<h2>Total Flagged Records — All 6 Versions</h2>
+<h2>Total Flagged Records — All 14 Snapshots</h2>
 <div class="bar-section">
-  <div class="bar-row">
-    <span class="bar-label">v1 13Jul</span>
-    <div class="bar-wrap"><div class="bar-fill bar-v1" style="width:87.5%">224</div></div>
-    <span class="bar-num">224</span>
-  </div>
-  <div class="bar-row">
-    <span class="bar-label">v2 14Jul</span>
-    <div class="bar-wrap"><div class="bar-fill bar-v2" style="width:100%">256</div></div>
-    <span class="bar-num">256</span>
-  </div>
-  <div class="bar-row">
-    <span class="bar-label">v3 16Jul</span>
-    <div class="bar-wrap"><div class="bar-fill bar-v3" style="width:79.3%">203</div></div>
-    <span class="bar-num">203</span>
-  </div>
-  <div class="bar-row">
-    <span class="bar-label">v4 17Jul</span>
-    <div class="bar-wrap"><div class="bar-fill bar-v4" style="width:93.4%">239</div></div>
-    <span class="bar-num">239</span>
-  </div>
-  <div class="bar-row">
-    <span class="bar-label">v5 20Jul</span>
-    <div class="bar-wrap"><div class="bar-fill bar-v5" style="width:69.5%">178</div></div>
-    <span class="bar-num">178</span>
-  </div>
-  <div class="bar-row">
-    <span class="bar-label">v6 21Jul</span>
-    <div class="bar-wrap"><div class="bar-fill bar-v6" style="width:55.9%">143</div></div>
-    <span class="bar-num">143</span>
-  </div>
+  <div class="bar-row"><span class="bar-label">v1 13Jul</span><div class="bar-wrap"><div class="bar-fill bc1" style="width:87.5%">224</div></div><span class="bar-num">224</span></div>
+  <div class="bar-row"><span class="bar-label">v2 14Jul</span><div class="bar-wrap"><div class="bar-fill bc2" style="width:100%">256</div></div><span class="bar-num">256</span></div>
+  <div class="bar-row"><span class="bar-label">v3 16Jul</span><div class="bar-wrap"><div class="bar-fill bc3" style="width:79.3%">203</div></div><span class="bar-num">203</span></div>
+  <div class="bar-row"><span class="bar-label">v4 17Jul</span><div class="bar-wrap"><div class="bar-fill bc4" style="width:93.4%">239</div></div><span class="bar-num">239</span></div>
+  <div class="bar-row"><span class="bar-label">v5 20Jul</span><div class="bar-wrap"><div class="bar-fill bc5" style="width:69.5%">178</div></div><span class="bar-num">178</span></div>
+  <div class="bar-row"><span class="bar-label">v6 21Jul</span><div class="bar-wrap"><div class="bar-fill bc6" style="width:55.9%">143</div></div><span class="bar-num">143</span></div>
+  <div class="bar-row"><span class="bar-label">v7 22Jul</span><div class="bar-wrap"><div class="bar-fill bc3" style="width:65.2%">167</div></div><span class="bar-num">167</span></div>
+  <div class="bar-row"><span class="bar-label">v8 23Jul</span><div class="bar-wrap"><div class="bar-fill bc3" style="width:60.9%">156</div></div><span class="bar-num">156</span></div>
+  <div class="bar-row"><span class="bar-label">v9 24Jul</span><div class="bar-wrap"><div class="bar-fill bc7" style="width:44.5%">114</div></div><span class="bar-num">114</span></div>
+  <div class="bar-row"><span class="bar-label">v10 27Jul</span><div class="bar-wrap"><div class="bar-fill bc3" style="width:79.7%">204</div></div><span class="bar-num">204</span></div>
+  <div class="bar-row"><span class="bar-label">v11 28Jul</span><div class="bar-wrap"><div class="bar-fill bc3" style="width:78.1%">200</div></div><span class="bar-num">200</span></div>
+  <div class="bar-row"><span class="bar-label">v12 29Jul</span><div class="bar-wrap"><div class="bar-fill bc7" style="width:75.4%">193</div></div><span class="bar-num">193</span></div>
+  <div class="bar-row"><span class="bar-label">v13 30Jul</span><div class="bar-wrap"><div class="bar-fill bc3" style="width:83.2%">213</div></div><span class="bar-num">213</span></div>
+  <div class="bar-row"><span class="bar-label">v14 31Jul</span><div class="bar-wrap"><div class="bar-fill bc9" style="width:73.8%">189</div></div><span class="bar-num">189</span></div>
 </div>
 
-<h2>Rule-by-Rule Comparison Across All 6 Versions</h2>
+<h2>Rule-by-Rule Comparison — Full Month (v1 → v14)</h2>
 <table class="rule-tbl">
   <thead>
     <tr>
-      <th class="left" style="width:170px">Rule</th>
+      <th class="left" style="width:175px">Rule</th>
       <th>v1<br><span style="font-weight:400;font-size:10px">13 Jul</span></th>
       <th>v2<br><span style="font-weight:400;font-size:10px">14 Jul</span></th>
       <th>v3<br><span style="font-weight:400;font-size:10px">16 Jul</span></th>
       <th>v4<br><span style="font-weight:400;font-size:10px">17 Jul</span></th>
       <th>v5<br><span style="font-weight:400;font-size:10px">20 Jul</span></th>
       <th>v6<br><span style="font-weight:400;font-size:10px">21 Jul</span></th>
-      <th>v1→v6<br><span style="font-weight:400;font-size:10px">Change</span></th>
+      <th>v7<br><span style="font-weight:400;font-size:10px">22 Jul</span></th>
+      <th>v8<br><span style="font-weight:400;font-size:10px">23 Jul</span></th>
+      <th>v9<br><span style="font-weight:400;font-size:10px">24 Jul</span></th>
+      <th>v10<br><span style="font-weight:400;font-size:10px">27 Jul</span></th>
+      <th>v11<br><span style="font-weight:400;font-size:10px">28 Jul</span></th>
+      <th>v12<br><span style="font-weight:400;font-size:10px">29 Jul</span></th>
+      <th>v13<br><span style="font-weight:400;font-size:10px">30 Jul</span></th>
+      <th>v14<br><span style="font-weight:400;font-size:10px">31 Jul</span></th>
+      <th>v1→v14<br><span style="font-weight:400;font-size:10px">Change</span></th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td class="label">R1 — EST Non Compliant</td>
       <td>52</td><td>77</td><td>58</td><td>68</td><td>64</td><td>39</td>
-      <td class="delta-good">▼ 13</td>
+      <td>46</td><td>44</td><td>52</td><td>112</td><td>150</td><td>101</td><td>74</td><td>45</td>
+      <td class="delta-good">▼ 7</td>
     </tr>
     <tr>
       <td class="label">R2 — Comment Non Compliant</td>
       <td>146</td><td>157</td><td>125</td><td>152</td><td>61</td><td>37</td>
-      <td class="delta-good">▼ 109</td>
+      <td>81</td><td>73</td><td>30</td><td>52</td><td>30</td><td>31</td><td>51</td><td>44</td>
+      <td class="delta-good">▼ 102</td>
     </tr>
     <tr>
-      <td class="label">R3 — Track / Fieldglass Mismatch</td>
+      <td class="label">R3 — Track/Fieldglass Mismatch</td>
       <td>17</td><td>20</td><td>16</td><td>19</td><td>22</td><td>32</td>
-      <td class="delta-bad">▲ 15</td>
+      <td>27</td><td>27</td><td>24</td><td>25</td><td>3</td><td>1</td><td>1</td><td>5</td>
+      <td class="delta-good">▼ 12</td>
     </tr>
     <tr>
       <td class="label">R4 — Track Type / FA Mismatch</td>
       <td>84</td><td>108</td><td>77</td><td>84</td><td>97</td><td>63</td>
-      <td class="delta-good">▼ 21</td>
+      <td>52</td><td>52</td><td>28</td><td>115</td><td>149</td><td>137</td><td>144</td><td>132</td>
+      <td class="delta-bad">▲ 48</td>
     </tr>
     <tr>
       <td class="label">R5a — Recruiting w/o Ticket</td>
       <td>5</td><td>7</td><td>11</td><td>26</td><td>12</td><td>10</td>
-      <td class="delta-bad">▲ 5</td>
+      <td>9</td><td>6</td><td>3</td><td>2</td><td>1</td><td>12</td><td>11</td><td>1</td>
+      <td class="delta-good">▼ 4</td>
     </tr>
     <tr>
       <td class="label">R5b — FA Bench/Rolloff + Ticket</td>
       <td>23</td><td>25</td><td>17</td><td>14</td><td>16</td><td>13</td>
-      <td class="delta-good">▼ 10</td>
+      <td>16</td><td>9</td><td>5</td><td>3</td><td>3</td><td>2</td><td>3</td><td>7</td>
+      <td class="delta-good">▼ 16</td>
     </tr>
     <tr>
       <td class="label">R5c — SubK / FG Mismatch</td>
       <td>17</td><td>20</td><td>16</td><td>19</td><td>22</td><td>32</td>
-      <td class="delta-bad">▲ 15</td>
+      <td>27</td><td>27</td><td>24</td><td>25</td><td>3</td><td>1</td><td>1</td><td>5</td>
+      <td class="delta-good">▼ 12</td>
     </tr>
     <tr>
       <td class="label">R6 — Backfill N + Ranking 999</td>
       <td>—</td><td>—</td><td>1</td><td>1</td><td>1</td><td>0</td>
-      <td class="delta-good">▼ 1 ✓</td>
+      <td>0</td><td>0</td><td>0</td><td>5</td><td>2</td><td>2</td><td>2</td><td>2</td>
+      <td class="delta-bad">▲ 2</td>
     </tr>
     <tr>
       <td class="label">R7 — Confirmed &gt; 2 Working Days</td>
       <td>—</td><td>—</td><td>10</td><td>8</td><td>12</td><td>13</td>
-      <td class="delta-bad">▲ 3</td>
+      <td>10</td><td>13</td><td>11</td><td>16</td><td>15</td><td>14</td><td>13</td><td>10</td>
+      <td class="delta-good">▼ 3</td>
     </tr>
     <tr class="total-row">
       <td class="label">TOTAL FLAGGED</td>
       <td>224</td><td>256</td><td>203</td><td>239</td><td>178</td><td>143</td>
-      <td class="delta-good" style="color:#6ee7b7">▼ 81</td>
+      <td>167</td><td>156</td><td>114</td><td>204</td><td>200</td><td>193</td><td>213</td><td>189</td>
+      <td class="delta-good" style="color:#6ee7b7">▼ 35</td>
     </tr>
   </tbody>
 </table>
 
-<h2>Key Insights</h2>
-<div class="insights">
-  <div class="card">
-    <strong>Biggest Win — R2 Comments (▼ 109)</strong>
-    Comment Non Compliant dropped from 157 (v2) to just 37 (v6). This is the largest single improvement — FS teams are updating their comments consistently after email nudges.
-  </div>
-  <div class="card">
-    <strong>Needs Attention — R3 &amp; R5c Fieldglass (▲ 15)</strong>
-    Track/Fieldglass and SubK/FG mismatches have actually increased from 17 → 32. Contractor-track demands are not getting Fieldglass flags set correctly.
-  </div>
-  <div class="card">
-    <strong>v2 was the Worst (256 flags)</strong>
-    Day 2 spike happened likely due to new demands being added without compliance. The email campaign after v2 drove a sharp recovery from v3 onwards.
-  </div>
-  <div class="card">
-    <strong>R6 Fully Cleared ✓</strong>
-    Backfill N + Ranking 999 went from 1 to 0 in v6. Fully resolved — no further action needed on this rule.
-  </div>
-  <div class="card">
-    <strong>R4 Track/FA Mismatch (▼ 21)</strong>
-    Reduced from 108 (v2) to 63 (v6) but still the 2nd largest category. FS owners need to align Track Type with Fulfillment Action more carefully.
-  </div>
-  <div class="card">
-    <strong>R7 Confirmed &gt; 2 Days (▲ 13)</strong>
-    Confirmed candidates are not being processed within the 2 working day SLA. This trend is worsening — escalation recommended.
-  </div>
-</div>
-
-<h2>Day-over-Day Change</h2>
+<h2>Day-over-Day Change — Full Month</h2>
 <table>
   <thead>
     <tr>
@@ -203,7 +189,7 @@ footer{margin-top:32px;padding-top:10px;border-top:1px solid #e5e7eb;text-align:
       <th>Before</th>
       <th>After</th>
       <th>Change</th>
-      <th>Direction</th>
+      <th>Driver</th>
     </tr>
   </thead>
   <tbody>
@@ -212,10 +198,71 @@ footer{margin-top:32px;padding-top:10px;border-top:1px solid #e5e7eb;text-align:
     <tr><td class="label">v3 → v4 (16→17 Jul)</td><td>203</td><td>239</td><td class="delta-bad">+36</td><td>▲ Data refresh spike</td></tr>
     <tr><td class="label">v4 → v5 (17→20 Jul)</td><td>239</td><td>178</td><td class="delta-good">−61</td><td>▼ Weekend catch-up</td></tr>
     <tr><td class="label">v5 → v6 (20→21 Jul)</td><td>178</td><td>143</td><td class="delta-good">−35</td><td>▼ Continued improvement</td></tr>
+    <tr><td class="label">v6 → v7 (21→22 Jul)</td><td>143</td><td>167</td><td class="delta-bad">+24</td><td>▲ Source file refresh (R1/R2 recalibration)</td></tr>
+    <tr><td class="label">v7 → v8 (22→23 Jul)</td><td>167</td><td>156</td><td class="delta-good">−11</td><td>▼ FS updates after email nudge</td></tr>
+    <tr><td class="label">v8 → v9 (23→24 Jul)</td><td>156</td><td>114</td><td class="delta-good">−42</td><td>▼ Best single-day improvement (R4 resolved)</td></tr>
+    <tr><td class="label">v9 → v10 (24→27 Jul)</td><td>114</td><td>204</td><td class="delta-bad">+90</td><td>▲ China Backfill batch demand added (R4 spike)</td></tr>
+    <tr><td class="label">v10 → v11 (27→28 Jul)</td><td>204</td><td>200</td><td class="delta-good">−4</td><td>▼ Minor corrections</td></tr>
+    <tr><td class="label">v11 → v12 (28→29 Jul)</td><td>200</td><td>193</td><td class="delta-good">−7</td><td>▼ Continued ESC + comment updates</td></tr>
+    <tr><td class="label">v12 → v13 (29→30 Jul)</td><td>193</td><td>213</td><td class="delta-bad">+20</td><td>▲ Additional demands / R4 new entries</td></tr>
+    <tr><td class="label">v13 → v14 (30→31 Jul)</td><td>213</td><td>189</td><td class="delta-good">−24</td><td>▼ Month-end clean-up drive</td></tr>
   </tbody>
 </table>
 
-<footer>Made with IBM Bob</footer>
+<h2>Key Insights — Updated 31 Jul 2026</h2>
+<div class="insights">
+  <div class="card">
+    <strong>R4 Track/FA Mismatch is the Biggest Challenge (132 flags)</strong>
+    After the 24 Jul low of 28, a China Backfill batch on 27 Jul injected 80+ new R4 flags. This is now the #1 open issue — 132 demands have misaligned Track Type vs Fulfillment Action.
+  </div>
+  <div class="card">
+    <strong>Best Day — 24 Jul at 114 Flags</strong>
+    The single best compliance day of July with R4 cleared to 28, R2 at 30, and R1 at 52. The China Backfill batch on 27 Jul reversed most of this gain.
+  </div>
+  <div class="card">
+    <strong>R2 Comments: Big Win (▼ 102 from v1)</strong>
+    Comment Non Compliant dropped from 157 (peak v2) to 44 (v14). Email nudge campaigns have been effective; FS teams updating comments consistently.
+  </div>
+  <div class="card">
+    <strong>R1 EST Date: Persistent Low-Level Issue</strong>
+    EST Non Compliant went as high as 150 on 28 Jul (China Backfills had no dates set). Now back to 45 after FS owners updated. Still needs daily monitoring.
+  </div>
+  <div class="card">
+    <strong>R3 + R5c Fieldglass: Improving (▼ 12)</strong>
+    Track/Fieldglass and SubK/FG mismatches are down from 32 (v6 peak) to just 5 (v14). Good progress — Fieldglass flags are being set correctly on contractor tracks.
+  </div>
+  <div class="card">
+    <strong>R7 Confirmed &gt; 2 Days: Still Unresolved (10 flags)</strong>
+    Confirmed candidates are not being processed within the 2-working-day SLA throughout the month. Needs escalation to hiring managers to close out.
+  </div>
+</div>
+
+<h2>Rule Status Summary — End of Month</h2>
+<table>
+  <thead>
+    <tr>
+      <th class="left">Rule</th>
+      <th>Peak</th>
+      <th>31 Jul</th>
+      <th>Status</th>
+      <th>Action Needed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">R1 — EST Non Compliant</td><td>150</td><td>45</td><td class="delta-good">Improving</td><td>Monitor daily; auto date-push for China Backfills</td></tr>
+    <tr><td class="label">R2 — Comment Non Compliant</td><td>157</td><td>44</td><td class="delta-good">Strong improvement</td><td>Continue email campaign; 15-day cadence</td></tr>
+    <tr><td class="label">R3 — Track/Fieldglass Mismatch</td><td>32</td><td>5</td><td class="delta-good">Near resolved</td><td>Spot-check 5 remaining; likely 1-2 FS owners</td></tr>
+    <tr><td class="label">R4 — Track Type / FA Mismatch</td><td>149</td><td>132</td><td class="delta-bad">Critical</td><td>Dedicated FS call to correct China Backfill Track Types</td></tr>
+    <tr><td class="label">R5a — Recruiting w/o Ticket</td><td>26</td><td>1</td><td class="delta-good">Resolved</td><td>Maintain — only 1 remaining</td></tr>
+    <tr><td class="label">R5b — FA Bench/Rolloff + Ticket</td><td>25</td><td>7</td><td class="delta-good">Improving</td><td>7 to clear — FS to remove AskFile tickets</td></tr>
+    <tr><td class="label">R5c — SubK / FG Mismatch</td><td>32</td><td>5</td><td class="delta-good">Near resolved</td><td>Same 5 as R3 — contractor FG flag not set</td></tr>
+    <tr><td class="label">R6 — Backfill N + Ranking 999</td><td>5</td><td>2</td><td class="delta-bad">Regressed</td><td>Was cleared at v6; 2 new entries appeared post-27 Jul</td></tr>
+    <tr><td class="label">R7 — Confirmed &gt; 2 Working Days</td><td>16</td><td>10</td><td class="delta-bad">Persistent</td><td>Escalate to hiring managers — SLA breach</td></tr>
+    <tr class="total-row"><td class="label">TOTAL</td><td>256 (peak v2)</td><td>189</td><td class="delta-good" style="color:#6ee7b7">▼ 26% from peak</td><td>Focus: R4 China Backfill batch correction</td></tr>
+  </tbody>
+</table>
+
+<footer>IBM Industrial WFM — Sector Collaboration &nbsp;|&nbsp; Made with IBM Bob</footer>
 </div>
 </body>
 </html>

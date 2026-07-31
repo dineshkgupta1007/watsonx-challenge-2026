@@ -142,24 +142,18 @@ function setBtns(disabled) {
 }
 
 // ---- Replace the first line in src that starts with prefix ----
-// prefix may end with " " or "=" to be precise (e.g. "$refDate =" won't match "$refDateStr")
 function replaceLine(src, prefix, newLine) {
-    var lines = src.split("\n");
+    // normalise to LF-only so split/join is consistent
+    var crlf  = src.indexOf("\r\n") !== -1;
+    var lines = src.replace(/\r\n/g, "\n").split("\n");
     for (var i = 0; i < lines.length; i++) {
-        var t = lines[i].replace(/^\s+/, "");   // ltrim
-        if (t.indexOf(prefix) === 0) {
-            // if prefix ends with = or space it is already precise enough
-            // otherwise require that the next char is = space or tab
-            var lastPrefixChar = prefix.charAt(prefix.length - 1);
-            if (lastPrefixChar === "=" || lastPrefixChar === " ") {
-                lines[i] = newLine;
-                return lines.join("\n");
-            }
-            var nc = t.charAt(prefix.length);
-            if (nc === " " || nc === "=" || nc === "\t") {
-                lines[i] = newLine;
-                return lines.join("\n");
-            }
+        var t  = lines[i].replace(/^\s+/, "").replace(/\s+$/, ""); // trim both ends
+        var nc = t.charAt(prefix.length);
+        if (t.indexOf(prefix) === 0 && (nc === " " || nc === "=" || nc === "\t" || nc === "")) {
+            lines[i] = newLine;
+            var joined = lines.join("\n");
+            // restore original line endings
+            return crlf ? joined.replace(/\n/g, "\r\n") : joined;
         }
     }
     return src;
@@ -190,6 +184,11 @@ function buildScript(doEmail, doGit) {
     src = replaceLine(src, "$xlsxPath",   "$xlsxPath = Join-Path $root '" + xlsxVal + "'");
     src = replaceLine(src, "$jsonPath",   "$jsonPath = Join-Path $root '.bob\\tmp\\xlsx-dumps\\launcher-cache\\30days.json'");
     src = replaceLine(src, "$outPath",    "$outPath  = Join-Path $root '" + outVal + "'");
+    // Also patch the git add line to reference the correct xlsx filename
+    src = src.replace(
+        "git add \"IND_July2026_Compliance_by_FS.html\" \"Generate_Compliance_Report.ps1\" \"Industrial 30 days open demands.xlsx\"",
+        "git add \"" + outVal + "\" \"Generate_Compliance_Report.ps1\" \"" + xlsxVal + "\""
+    );
 
     // Inject email + git flags right after param() line
     var inject = "\r\n# LAUNCHER OVERRIDES\r\n" + emailLine + "\r\n" + gitLine + "\r\n";
@@ -231,9 +230,20 @@ function runCore(doEmail) {
     setBtns(true);
     setPill("Running...", "pill-run");
     addLog("Starting report generation...", "info");
+    var resolvedXlsx = getDir() + "\\" + document.getElementById("xlsxName").value.replace(/^\s+|\s+$/g,"");
+    var resolvedOut  = getDir() + "\\" + document.getElementById("outName").value.replace(/^\s+|\s+$/g,"");
     addLog("Folder : " + getDir(), "dim");
-    addLog("xlsx   : " + document.getElementById("xlsxName").value, "dim");
-    addLog("Output : " + document.getElementById("outName").value, "dim");
+    addLog("xlsx   : " + resolvedXlsx, "dim");
+    addLog("Output : " + resolvedOut, "dim");
+    // verify xlsx exists before launching
+    var fsoCheck = new ActiveXObject("Scripting.FileSystemObject");
+    if (!fsoCheck.FileExists(resolvedXlsx)) {
+        addLog("ERROR: xlsx file not found - " + resolvedXlsx, "err");
+        addLog("Update the Source xlsx filename field to the correct name and try again.", "err");
+        setPill("Error", "pill-err");
+        setBtns(false);
+        return;
+    }
 
     var doGit = document.getElementById("chkGit").checked;
     var tmp   = buildScript(doEmail, doGit);
@@ -298,14 +308,49 @@ document.getElementById("btnView").onclick = function() {
 };
 
 document.getElementById("btnProg").onclick = function() {
-    var dir  = getDir();
-    var path = dir + "\\IND_July2026_Compliance_Progress_Analysis.html";
-    var fso  = new ActiveXObject("Scripting.FileSystemObject");
-    if (fso.FileExists(path)) {
-        openFresh(path);
-        addLog("Opened (fresh): " + path, "ok");
+    var dir     = getDir();
+    var ps1Path = dir + "\\Generate_Progress_Analysis.ps1";
+    var outPath = dir + "\\IND_July2026_Compliance_Progress_Analysis.html";
+    var fso     = new ActiveXObject("Scripting.FileSystemObject");
+
+    if (!fso.FileExists(ps1Path)) {
+        addLog("ERROR: Generate_Progress_Analysis.ps1 not found in: " + dir, "err");
+        return;
+    }
+
+    // Disable all buttons during run
+    setBtns(true);
+    document.getElementById("btnProg").disabled = true;
+    document.getElementById("btnView").disabled = true;
+    document.getElementById("btnClr").disabled  = true;
+    setPill("Running...", "pill-run");
+    addLog("Generating Progress Analysis...", "info");
+    addLog("Script: " + ps1Path, "dim");
+
+    var sh  = new ActiveXObject("WScript.Shell");
+    var cmd = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"" + ps1Path + "\"";
+    var ret = sh.Run(cmd, 1, true);   // wait=true
+
+    // Re-enable all buttons
+    setBtns(false);
+    document.getElementById("btnProg").disabled = false;
+    document.getElementById("btnView").disabled = false;
+    document.getElementById("btnClr").disabled  = false;
+
+    if (ret === 0) {
+        addLog("Progress Analysis rebuilt and pushed to GitHub.", "ok");
+        setPill("Done - OK", "pill-ok");
     } else {
-        addLog("File not found: " + path, "err");
+        addLog("Script finished with exit code " + ret + ". Check the PowerShell window.", "warn");
+        setPill("Exit code " + ret, "pill-err");
+    }
+
+    // Open the HTML whether or not git push succeeded (file was still written)
+    if (fso.FileExists(outPath)) {
+        openFresh(outPath);
+        addLog("Opened Progress Analysis: " + outPath, "ok");
+    } else {
+        addLog("Output file not found after run: " + outPath, "err");
     }
 };
 
